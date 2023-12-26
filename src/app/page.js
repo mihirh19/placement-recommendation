@@ -5,16 +5,18 @@ import axios from 'axios';
 
 export const revalidate = 2;
 
-async function getData() {
-  'use server'
-  const prisma = new PrismaClient();
-  const users = await prisma.user.findMany();
-  return users;
+// async function getData() {
+//   'use server'
+//   const prisma = new PrismaClient();
+//   const users = await prisma.user.findMany();
+//   return users;
+// }
+
+export const getData = async () => {
+  const { data } = await axios.get(`${process.env.API_URL}/api`)
+  return data
 }
-
-
 export default async function Home() {
-  // const { data } = await axios.get(`${process.env.API_URL}/api`)
   const data = await getData();
   return (
     <div>
