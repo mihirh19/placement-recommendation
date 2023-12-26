@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { PrismaClient } from "@prisma/client";
 import axios from 'axios';
 
+export const revalidate = 2;
+
 async function getData() {
   'use server'
   const prisma = new PrismaClient();
