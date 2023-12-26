@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import axios from 'axios';
 
 async function getData() {
+  'use server'
   const prisma = new PrismaClient();
   const users = await prisma.user.findMany();
   return users;
@@ -11,7 +12,8 @@ async function getData() {
 
 
 export default async function Home() {
-  const { data } = await axios.get(`${process.env.API_URL}/api`)
+  // const { data } = await axios.get(`${process.env.API_URL}/api`)
+  const data = await getData();
   return (
     <div>
       <h1>Users</h1>
