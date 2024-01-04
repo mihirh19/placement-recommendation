@@ -19,7 +19,6 @@ export async function POST(req, res) {
             role
          }
       });
-      console.log("user created");
       return NextResponse.json({
          message: "user Registerd"
       }, { status: 201 })
