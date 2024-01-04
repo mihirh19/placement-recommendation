@@ -13,11 +13,12 @@ datasource db {
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   username  String   @unique
-  // email    String @unique
+  email     String   @unique
   name      String   @default("")
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  role      Role     @default(STUDENT)
 }
 
 enum Role {

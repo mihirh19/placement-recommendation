@@ -1,10 +1,56 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 import styles from './page.module.css'
-
+import { signIn } from 'next-auth/react'
+import { redirect } from 'next/dist/server/api-utils'
+import { toast } from "react-toastify";
+import { useRouter } from 'next/navigation'
 const Login = () => {
+
+  const [userInfo, setUserInfo] = useState({ username: '', password: '' })
+  const router = useRouter()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const res = await signIn('credentials', {
+      username: userInfo.username,
+      password: userInfo.password,
+      redirect: false
+    }).then((res) => {
+      if (res.error) {
+        toast.error("Invalid Username or password", {
+          position: "top-center",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      } else {
+        toast.success("Successful SignIn", {
+          position: "top-center",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        router.push('/dashboard')
+      }
+    })
+
+
+  }
+
+
+
   return (
-    <form className={styles.bg}>
-      <div className={styles.loginContainer} class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0" style={{ opacity: 1 }}>
+    <form className={styles.bg} >
+      <div className={styles.loginContainer} style={{ opacity: 1 }}>
         <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <p className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
@@ -13,29 +59,21 @@ const Login = () => {
               <label className="block mb-2 text-sm font-medium text-gray-900">
                 Your username
               </label>
-              <input placeholder="JohnDoe" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text" />
+              <input
+                onChange={(e) => setUserInfo({ ...userInfo, username: e.target.value })}
+                placeholder="JohnDoe" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text" />
             </div>
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-900">
                 Password
               </label>
-              <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="••••••••" id="password" type="password" />
-            </div>
-            <div className="flex items-start">
-              <div className="flex items-center h-5">
-                <input className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 bg-gray-700 border-gray-600 focus:ring-primary-600 ring-offset-gray-800" type="checkbox" aria-describedby="terms" id="terms" />
-              </div>
-              <div className="ml-3 text-sm">
-                <label className="font-light text-gray-500 text-gray-300">
-                  I accept the
-                  <a href="#" className="font-medium text-primary-600 hover:underline text-primary-500">
-                    Terms and Conditions
-                  </a>
-                </label>
-              </div>
+              <input
+                onChange={(e) => setUserInfo({ ...userInfo, password: e.target.value })}
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="••••••••" id="password" type="password" />
             </div>
 
-            <button className="w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  focus:ring-blue-800 text-white" type="submit">
+
+            <button onClick={handleSubmit} className="w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  focus:ring-blue-800 text-white" type="submit">
               Login
             </button>
           </div>
