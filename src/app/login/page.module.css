@@ -1,0 +1,29 @@
+.bg{
+    min-height: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:relative;
+}
+.bg::before{
+    content: '';
+    background-image: url("../../images/bgLogin.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right:0;
+    bottom:0;
+    opacity:0.2;
+}
+.loginContainer{
+    position: relative;
+    z-index:0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
