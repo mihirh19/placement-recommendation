@@ -31,7 +31,7 @@ const loading = () => {
                            Your username
                         </label>
                         <input
-                           onChange={(e) => setUserInfo({ ...userInfo, username: e.target.value })}
+
                            placeholder="JohnDoe" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text" />
                      </div>
                      <div>
@@ -39,12 +39,12 @@ const loading = () => {
                            Password
                         </label>
                         <input
-                           onChange={(e) => setUserInfo({ ...userInfo, password: e.target.value })}
+
                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="••••••••" id="password" type="password" />
                      </div>
 
 
-                     <button onClick={handleSubmit} className="w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  focus:ring-blue-800 text-white" type="submit">
+                     <button className="w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  focus:ring-blue-800 text-white" type="submit">
                         Login
                      </button>
                   </div>
