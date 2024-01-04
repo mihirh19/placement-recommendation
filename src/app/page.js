@@ -1,5 +1,5 @@
 
-import GetUser from '@/components/GetUser';
+import GetUser from '../components/GetUser';
 export default function Home() {
 
   return (

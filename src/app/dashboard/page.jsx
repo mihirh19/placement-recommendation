@@ -1,4 +1,4 @@
-import UserInfo from "@/components/userInfo";
+import UserInfo from "../../components/UserInfo";
 
 export default function Dashboard() {
    return (

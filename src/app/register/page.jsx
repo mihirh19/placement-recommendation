@@ -1,5 +1,5 @@
 
-import RegisterUser from "@/components/RegisterUser"
+import RegisterUser from "../../components/RegisterUser"
 import React from "react"
 
 const Register = () => {
