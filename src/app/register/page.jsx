@@ -1,4 +1,4 @@
-'use client'
+
 import RegisterUser from "@/components/RegisterUser"
 import React from "react"
 
