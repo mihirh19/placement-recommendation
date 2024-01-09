@@ -1,13 +1,40 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import prisma from '@/lib/prisma';
-
+import { getSession } from "next-auth/react";
+import { authOptions } from '../auth/[...nextauth]/route';
+import { getServerSession } from 'next-auth';
 
 export async function POST(req, res) {
 
    try {
-      const { username, password, email, role } = await req.json();
+      const { username, password, emailaddress, studentid, dateofbirth, phonenumber } = await req.json();
 
+      // check if user exists
+      const user = await fetch(`${process.env.API_URL}/api/userExists`, {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({
+            username
+         })
+      })
+
+      const { userExists } = await user.json();
+      if (userExists) {
+         return NextResponse.json({ message: "user already exists" }, { status: 400 })
+      }
+
+      const session = await getServerSession(authOptions)
+      if (session) {
+         if (session.role !== 'ADMIN') {
+            return NextResponse.json({ message: "you are not allowed to register users" }, { status: 401 })
+         }
+      }
+      else {
+         return NextResponse.json({ message: "you are not allowed to register users" }, { status: 401 })
+      }
 
       const hashedPassword = await bcrypt.hash(password, 10);
       // save the user to database
@@ -15,15 +42,18 @@ export async function POST(req, res) {
          data: {
             username,
             password: hashedPassword,
-            email,
-            role
+            email: emailaddress,
+            role: "STUDENT",
+            studentId: studentid,
+            dateofbirth: dateofbirth,
+            phonenumber: phonenumber
          }
       });
       return NextResponse.json({
          message: "user Registerd"
-      }, { status: 201 })
+      }, { status: 200 })
    } catch (err) {
-      return NextResponse.json({ message: "error occuered while registering user" }, { status: 500 })
+      return NextResponse.json({ message: err.message }, { status: 500 })
    }
 
 }

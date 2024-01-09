@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import styles from './page.module.css'
 import { signIn } from 'next-auth/react'
-import { redirect } from 'next/dist/server/api-utils'
 import { toast } from "react-toastify";
 import { useRouter } from 'next/navigation'
 const Login = () => {

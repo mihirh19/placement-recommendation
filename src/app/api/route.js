@@ -14,9 +14,3 @@ export async function GET(req) {
 
 	// return NextResponse.json({ name: "John", email: "mihrt" });
 }
-
-export async function POST(req, res) {
-	const data = await req.json()
-	await prisma.user.create({ data: data })
-	return NextResponse.json(data);
-}
