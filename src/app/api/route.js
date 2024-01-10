@@ -9,6 +9,7 @@ export async function GET(req) {
 			username: true,
 		}
 	})
+	console.log(users);
 	return NextResponse.json(users)
 
 	// return NextResponse.json({ name: "John", email: "mihrt" });
