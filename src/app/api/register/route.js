@@ -8,6 +8,7 @@ export async function POST(req, res) {
 
    try {
       const { username, password, emailaddress, studentid, dateofbirth, phonenumber } = await req.json();
+      console.log(username, password, emailaddress, studentid, dateofbirth, phonenumber);
 
       // check if user exists
       const user = await fetch(`${process.env.API_URL}/api/userExists`, {
