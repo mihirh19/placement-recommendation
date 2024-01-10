@@ -20,7 +20,7 @@ model User {
   updatedAt   DateTime @updatedAt
   role        Role     @default(STUDENT)
   studentId   String   @unique
-  dateofbirth String
+  dateofbirth DateTime
   phonenumber String
 }
 
