@@ -11,21 +11,21 @@ export async function POST(req, res) {
       console.log(username, password, emailaddress, studentid, dateofbirth, phonenumber);
 
       // check if user exists
-      const user = await fetch(`${process.env.API_URL}/api/userExists`, {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json'
-         },
-         body: JSON.stringify({
-            username
-         })
-      })
+      // const user = await fetch(`${process.env.API_URL}/api/userExists`, {
+      //    method: 'POST',
+      //    headers: {
+      //       'Content-Type': 'application/json'
+      //    },
+      //    body: JSON.stringify({
+      //       username
+      //    })
+      // })
 
-      const { userExists } = await user.json();
-      console.log(userExists);
-      if (userExists) {
-         return NextResponse.json({ message: "user already exists" }, { status: 400 })
-      }
+      // const { userExists } = await user.json();
+      // console.log(userExists);
+      // if (userExists) {
+      //    return NextResponse.json({ message: "user already exists" }, { status: 400 })
+      // }
 
       const session = await getServerSession(authOptions)
       console.log(session);
