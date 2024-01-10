@@ -7,7 +7,6 @@ export async function GET(req) {
 		select: {
 			id: true,
 			username: true,
-
 		}
 	})
 	return NextResponse.json(users)
