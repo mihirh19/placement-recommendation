@@ -2,7 +2,7 @@
 import useSWR from 'swr';
 
 const GetUser = () => {
-   const { data, isLoading } = useSWR('/api', (url) => fetch(url).then(res => res.json()))
+   const { data, isLoading } = useSWR('/api', (url) => fetch(url, { cache: 'no-store', next: { revalidate: 0 } }).then(res => res.json()))
    console.log(data);
    return (
       <>
