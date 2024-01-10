@@ -1,9 +1,13 @@
 'use client'
 import useSWR from 'swr';
+// import { useState, useEffect } from 'react';
 
 const GetUser = () => {
-   const { data, isLoading } = useSWR('/api', (url) => fetch(url, { cache: 'no-store', next: { revalidate: 0 } }).then(res => res.json()))
+   // const [data, setData] = useState([]);
+   const { data, isLoading } = useSWR('/api', (url) => fetch(url).then(res => res.json()), { refreshInterval: 100 })
    console.log(data);
+
+
    return (
       <>
          <h1>Users</h1>
