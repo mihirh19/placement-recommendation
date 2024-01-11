@@ -40,7 +40,7 @@ export default function UserInfo({ username, email }) {
                />
                <Divider />
                <Button variant="faded" className="bg-red-500 text-white"
-                  onClick={() => signOut({ redirect: false }).then(() => {
+                  onClick={() => signOut().then(() => {
                      toast.info('Sign Out Success', {
                         position: "top-center",
                         autoClose: 1500,
