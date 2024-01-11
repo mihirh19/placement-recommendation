@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const GetUser = () => {
    // const [data, setData] = useState([]);
-   const { data, isLoading } = useSWR('/api', (url) => axios.get(url).then((res) => res.data));
+   const { data, isLoading, error } = useSWR('/api', (url) => axios.get(url).then((res) => res.data));
 
 
    return (
@@ -13,6 +13,7 @@ const GetUser = () => {
          <h1>Users</h1>
          <ul>
             {isLoading && <p>Loading...</p>}
+            {error && <p>Error...</p>}
             {data && data.users.map((user) => (
                <li key={user.id}>
                   {user.username}
