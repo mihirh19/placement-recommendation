@@ -8,7 +8,6 @@ export async function POST(req, res) {
 
    try {
       const { username, password, emailaddress, studentid, dateofbirth, phonenumber } = await req.json();
-      console.log(username, password, emailaddress, studentid, dateofbirth, phonenumber);
 
       // check if user exists
       // const user = await fetch(`${process.env.API_URL}/api/userExists`, {
@@ -28,7 +27,6 @@ export async function POST(req, res) {
       // }
 
       const session = await getServerSession(authOptions)
-      console.log(session);
       if (session) {
          if (session.role !== 'ADMIN') {
             return NextResponse.json({ message: "you are not allowed to register users" }, { status: 401 })
@@ -51,7 +49,6 @@ export async function POST(req, res) {
             phonenumber: phonenumber
          }
       });
-      console.log("user created");
       return NextResponse.json({
          message: "user Registerd"
       }, { status: 200 })

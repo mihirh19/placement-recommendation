@@ -29,7 +29,6 @@ const RegisterUser = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log(userInfo)
 
     if (userInfo.username === "" || userInfo.password === "") {
       toast.info("Fill All the field", {
