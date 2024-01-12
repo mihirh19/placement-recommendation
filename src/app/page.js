@@ -6,6 +6,7 @@ export default function Home() {
 
   return (
     <div>
+      
       <GetUser />
       <Link href={'/login'}>
         Login
