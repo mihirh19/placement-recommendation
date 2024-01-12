@@ -106,7 +106,7 @@ const LoginUser = () => {
                   {/* <button onClick={handleSubmit} className="w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  focus:ring-blue-800 text-white" type="submit">
                Login
              </button> */}
-                  <Button onClick={handleSubmit} color="primary" className='w-full' type='submit'>
+                  <Button onClick={handleSubmit} style={{ backgroundColor: '#F55734', color: '#FFFFFF' }} className='w-full' type='submit'>
                      Login
                   </Button>
                </div>
