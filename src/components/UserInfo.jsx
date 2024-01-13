@@ -3,6 +3,7 @@ import { signOut } from "next-auth/react";
 import { User } from "@nextui-org/react";
 import { toast } from "react-toastify";
 import { Card, CardBody, Divider, Button } from "@nextui-org/react";
+
 export default function UserInfo({ username, email }) {
 
 
@@ -40,7 +41,7 @@ export default function UserInfo({ username, email }) {
                />
                <Divider />
                <Button variant="faded" className="bg-red-500 text-white"
-                  onClick={() => signOut().then(() => {
+                  onClick={() => signOut({redirect:false}).then(() => {
                      toast.info('Sign Out Success', {
                         position: "top-center",
                         autoClose: 1500,
@@ -51,6 +52,7 @@ export default function UserInfo({ username, email }) {
                         progress: undefined,
                         theme: "dark",
                      });
+
                   })}
                >
                   Log Out

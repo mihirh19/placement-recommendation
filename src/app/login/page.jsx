@@ -10,7 +10,7 @@ const Login = () => {
   const router = useRouter();
 
   if (status === "authenticated") {
-    router.push("/dashboard");
+    router.push("/");
   }
   else if (status === "unauthenticated") {
     return <LoginUser />

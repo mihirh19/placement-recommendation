@@ -13,7 +13,7 @@ const GetUser = () => {
          <h1>Users</h1>
          <ul>
             {isLoading && <p>Loading...</p>}
-            {error && <p>Error...</p>}
+            {/*{error && <p>Error...</p>}*/}
             {data && data.users.map((user) => (
                <li key={user.id}>
                   {user.username}

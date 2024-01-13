@@ -1,42 +1,55 @@
 'use client'
-import React, { useState, useEffect } from "react";
-// import { useRouter} from 'next/router';
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar} from "@nextui-org/react";
+import React, { useState } from "react";
+import {
+    Navbar,
+    NavbarBrand,
+    NavbarContent,
+    NavbarItem,
+    Input,
+    DropdownItem,
+    DropdownTrigger,
+    Dropdown,
+    DropdownMenu,
+    Avatar,
+    Button, User, NavbarMenuToggle, NavbarMenu, NavbarMenuItem
+} from "@nextui-org/react";
 import {SearchIcon} from "./SearchIcon.jsx";
-import Image from "next/image.js";
+import Link from "next/link";
+import {useRouter} from "next/navigation";
+import {signOut, useSession} from "next-auth/react";
+import Image from "next/image";
+import {toast} from "react-toastify";
 
-export default function App({userRole}) {
-  const [activeTab, setActiveTab] = useState('Home'); 
+export default function App() {
+  const {status , data} = useSession();
+  const [activeTab, setActiveTab] = useState('Home');
+    const router = useRouter();
 
   const handleClick = (tab) => {
     setActiveTab(tab);
   };
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const pathname = window.location.pathname;
-    const tab = getTabFromPath(pathname);
-    setActiveTab(tab);
-  }, []);
 
-  const getTabFromPath = (pathname) => {
-    const parts = pathname.split("/");
-    return parts[1] || "Home";
-  }; 
   return (
-    <Navbar isBordered>
+    <Navbar isBordered shouldHideOnScroll onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent justify="start">
         <NavbarBrand className="mr-0">
-          <Image src="https://upload.wikimedia.org/wikipedia/en/0/05/Dharamsinh_Desai_University_logo.png" width={50} height={50}/>
+            <NavbarMenuToggle
+                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                className="sm:hidden"
+            />
+          <Image src="https://upload.wikimedia.org/wikipedia/en/0/05/Dharamsinh_Desai_University_logo.png" width={50} height={50} alt={"Avtar"}/>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-10">
-        {userRole == 'STUDENT' && (<>
+        {status==='authenticated' && data?.role === 'STUDENT' && (<>
           <NavbarItem isActive={activeTab === 'Home'}>
             <Link href="/" onClick={() => handleClick('Home')} style={{ color: activeTab === "Home" ? "#F55734" : "inherit" }}>
               Home
             </Link>
           </NavbarItem>
           <NavbarItem isActive={activeTab === 'Dashboard'}>
-            <Link color="foreground" onClick={() => handleClick('Dashboard')} href="/dashboard" style={{ color: activeTab === "Dashboard" ? "#F55734" : "inherit" }}>
+            <Link color="foreground" onClick={() => handleClick('Dashboard')} href={'/dashboard'} style={{ color: activeTab === "Dashboard" ? "#F55734" : "inherit" }}>
               Dashboard
             </Link>
           </NavbarItem>
@@ -52,19 +65,28 @@ export default function App({userRole}) {
           </NavbarItem>
           </>
           )}
-          {userRole == 'ADMIN' && (<>
+          {status==='authenticated' && data?.role === 'ADMIN' && (<>
           <NavbarItem isActive={activeTab === 'Home'}>
-            <Link href="/" onClick={() => handleClick('Home')} style={{ color: activeTab === "Home" ? "#F55734" : "inherit" }}>
+            <Link href="/" onClick={()=>{
+                handleClick("Home")
+                setIsMenuOpen(false)
+            }}  style={{ color: activeTab === "Home" ? "#F55734" : "inherit" }}>
               Home
             </Link>
           </NavbarItem>
           <NavbarItem isActive={activeTab === 'AddStudent'}>
-            <Link color="foreground" onClick={() => handleClick('AddStudent')} href="/dashboard" style={{ color: activeTab === "AddStudent" ? "#F55734" : "inherit" }}>
+            <Link color="foreground" onClick={()=> {
+                handleClick("AddStudent")
+                setIsMenuOpen(false)
+            }}  href="/register" style={{ color: activeTab === "AddStudent" ? "#F55734" : "inherit" }}>
               Add Student
             </Link>
           </NavbarItem>
           <NavbarItem isActive={activeTab === 'About'}>
-            <Link color="foreground" onClick={() => handleClick('About')} href="#" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
+            <Link color="foreground" onClick={()=> {
+                handleClick("About")
+                setIsMenuOpen(false)
+            }}  href="/" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
               About
             </Link>
           </NavbarItem>
@@ -86,22 +108,54 @@ export default function App({userRole}) {
           startContent={<SearchIcon size={18} />}
           type="search"
         />
+          <NavbarMenu>
+              {status==='authenticated' && data?.role === 'ADMIN' && (<>
+                      <NavbarMenuItem isActive={activeTab === 'Home'}>
+                          <Link href="/" onClick={()=>handleClick("Home")}  style={{ color: activeTab === "Home" ? "#F55734" : "inherit" }}>
+                              Home
+                          </Link>
+                      </NavbarMenuItem>
+                      <NavbarMenuItem isActive={activeTab === 'AddStudent'}>
+                          <Link color="foreground" onClick={()=>handleClick("AddStudent")}  href="/register" style={{ color: activeTab === "AddStudent" ? "#F55734" : "inherit" }}>
+                              Add Student
+                          </Link>
+                      </NavbarMenuItem>
+                      <NavbarMenuItem isAcive={activeTab === 'About'}>
+                          <Link color="foreground" onClick={()=>handleClick("About")}  href="/" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
+                              About
+                          </Link>
+                      </NavbarMenuItem>
+
+                  </>
+                )}
+          </NavbarMenu>
+        {status==='unauthenticated' && (
+
+            <Button color={'primary'} variant={'ghost'} onClick={()=> router.push('/login')}>
+            Login
+          </Button>
+
+        )}
+        {status==='authenticated' && (
+
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
-            <Avatar
-              isBordered
-              as="button"
-              className="transition-transform"
-              style={{ color: '#F55734' }}
-              name="Jason Hughes"
-              size="sm"
-              src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-            />
+              <Avatar
+                  isBordered
+                  as="button"
+                  className="transition-transform"
+                  color="danger"
+                  name={data?.username}
+                  size="sm"
+                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+              />
+
+
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">
             <DropdownItem key="profile" className="h-14 gap-2">
               <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">zoey@example.com</p>
+              <p className="font-semibold">{data?.username}</p>
             </DropdownItem>
             <DropdownItem key="settings">My Settings</DropdownItem>
             <DropdownItem key="team_settings">Team Settings</DropdownItem>
@@ -109,11 +163,24 @@ export default function App({userRole}) {
             <DropdownItem key="system">System</DropdownItem>
             <DropdownItem key="configurations">Configurations</DropdownItem>
             <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-            <DropdownItem key="logout" color="danger">
+            <DropdownItem key="logout" color="danger" onClick={() => signOut({redirect:false}).then(() => {
+              toast.info('Sign Out Success', {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
+              router.push('/login');
+            })} >
               Log Out
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
+            )}
       </NavbarContent>
     </Navbar>
   );

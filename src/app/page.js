@@ -8,9 +8,6 @@ export default function Home() {
     <div>
       
       <GetUser />
-      <Link href={'/login'}>
-        Login
-      </Link>
     </div>
   )
 }
