@@ -8,7 +8,7 @@ const nextConfig = {
                 pathname : "**",
             },
             {
-                protocol : "https",
+                protocol : "http",
                 hostname : "ddualumni.org",
                 pathname : "**",
             },
