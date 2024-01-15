@@ -1,6 +1,4 @@
 'use client'
-import { Inter } from 'next/font/google'
-// import { useSession } from "next-auth/react";
 import { SessionProvider } from 'next-auth/react'
 import './globals.css'
 import Navbar from '@/components/Navbar';
@@ -45,22 +43,3 @@ export default function RootLayout({ children }) {
 
   )
 }
-
-// function NavbarWrapper() {
-//   // const { status, data } = useSession();
-//
-//   if (status === "loading") {
-//     return <div>Loading...</div>;
-//   }
-//
-//   return (
-//     <>
-//       {status === "authenticated" && data?.role === "ADMIN" && (
-//         <Navbar userRole={'ADMIN'} />
-//       )}
-//       {status === "authenticated" && data?.role === "STUDENT" && (
-//         <Navbar userRole={'STUDENT'} />
-//       )}
-//     </>
-//   );
-// }

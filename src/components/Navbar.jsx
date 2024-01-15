@@ -11,13 +11,15 @@ import {
     Dropdown,
     DropdownMenu,
     Avatar,
-    Button, User, NavbarMenuToggle, NavbarMenu, NavbarMenuItem
+    Button, User, NavbarMenuToggle, NavbarMenu, NavbarMenuItem,
+    Image
 } from "@nextui-org/react";
 import {SearchIcon} from "./SearchIcon.jsx";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
 import {signOut, useSession} from "next-auth/react";
-import Image from "next/image";
+import NextImage from "next/image";
+
 import {toast} from "react-toastify";
 
 export default function App() {
@@ -40,7 +42,11 @@ export default function App() {
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                 className="sm:hidden"
             />
-          <Image src="http://ddualumni.org/Content/Public/images/ddu_logo.png" width={50} height={50} alt={"Avtar"}/>
+          <Image src={'https://ddualumni.org/Content/Public/images/ddu_logo.png'}
+                 width={50}
+                 height={50}
+                 alt={"DDU LOGO"}
+          />
         </NavbarBrand>
   
         {status==='authenticated' && data?.role === 'STUDENT' && (
@@ -57,16 +63,39 @@ export default function App() {
             </Link>
           </NavbarItem>
           <NavbarItem isActive={activeTab === 'Reviews'}>
-            <Link color="foreground" onClick={() => handleClick('Reviews')} href="#" style={{ color: activeTab === "Reviews" ? "#F55734" : "inherit" }}>
+            <Link color="foreground" onClick={() => handleClick('Reviews')} href="/" style={{ color: activeTab === "Reviews" ? "#F55734" : "inherit" }}>
               Reviews
             </Link>
           </NavbarItem>
           <NavbarItem isActive={activeTab === 'About'}>
-            <Link color="foreground" onClick={() => handleClick('About')} href="#" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
+            <Link color="foreground" onClick={() => handleClick('About')} href="/" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
               About
             </Link>
           </NavbarItem>
           </NavbarContent>
+
+            <NavbarMenu>
+                <NavbarMenuItem isActive={activeTab === 'Home'}>
+                    <Link href="/" onClick={() => handleClick('Home')} style={{ color: activeTab === "Home" ? "#F55734" : "inherit" }}>
+                        Home
+                    </Link>
+                </NavbarMenuItem>
+                <NavbarMenuItem isActive={activeTab === 'Dashboard'}>
+                    <Link color="foreground" onClick={() => handleClick('Dashboard')} href={'/dashboard'} style={{ color: activeTab === "Dashboard" ? "#F55734" : "inherit" }}>
+                        Dashboard
+                    </Link>
+                </NavbarMenuItem>
+                <NavbarMenuItem isActive={activeTab === 'Reviews'}>
+                    <Link color="foreground" onClick={() => handleClick('Reviews')} href="/" style={{ color: activeTab === "Reviews" ? "#F55734" : "inherit" }}>
+                        Reviews
+                    </Link>
+                </NavbarMenuItem>
+                <NavbarMenuItem isActive={activeTab === 'About'}>
+                    <Link color="foreground" onClick={() => handleClick('About')} href="/" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
+                        About
+                    </Link>
+                </NavbarMenuItem>
+            </NavbarMenu>
           </>
           )}
           {status==='authenticated' && data?.role === 'ADMIN' && (<>
@@ -74,7 +103,6 @@ export default function App() {
           <NavbarItem isActive={activeTab === 'Home'}>
             <Link href="/" onClick={()=>{
                 handleClick("Home")
-                setIsMenuOpen(false)
             }}  style={{ color: activeTab === "Home" ? "#F55734" : "inherit" }}>
               Home
             </Link>
@@ -82,7 +110,6 @@ export default function App() {
           <NavbarItem isActive={activeTab === 'AddStudent'}>
             <Link color="foreground" onClick={()=> {
                 handleClick("AddStudent")
-                setIsMenuOpen(false)
             }}  href="/register" style={{ color: activeTab === "AddStudent" ? "#F55734" : "inherit" }}>
               Add Student
             </Link>
@@ -90,12 +117,34 @@ export default function App() {
           <NavbarItem isActive={activeTab === 'About'}>
             <Link color="foreground" onClick={()=> {
                 handleClick("About")
-                setIsMenuOpen(false)
             }}  href="/" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
               About
             </Link>
           </NavbarItem>
           </NavbarContent>
+                  <NavbarMenu>
+                      <NavbarMenuItem isActive={activeTab === 'Home'}>
+                          <Link href="/" onClick={()=>{
+                              handleClick("Home")
+                          }}  style={{ color: activeTab === "Home" ? "#F55734" : "inherit" }}>
+                              Home
+                          </Link>
+                      </NavbarMenuItem>
+                      <NavbarMenuItem isActive={activeTab === 'AddStudent'}>
+                          <Link color="foreground" onClick={()=> {
+                              handleClick("AddStudent")
+                          }}  href="/register" style={{ color: activeTab === "AddStudent" ? "#F55734" : "inherit" }}>
+                              Add Student
+                          </Link>
+                      </NavbarMenuItem>
+                      <NavbarMenuItem isActive={activeTab === 'About'}>
+                          <Link color="foreground" onClick={()=> {
+                              handleClick("About")
+                          }}  href="/" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
+                              About
+                          </Link>
+                      </NavbarMenuItem>
+                  </NavbarMenu>
           </>
           )}
         </NavbarContent>
