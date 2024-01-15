@@ -42,11 +42,13 @@ export default function App() {
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                 className="sm:hidden"
             />
-          <Image src='http://ddualumni.org/Content/Public/images/ddu_logo.png'
+            <Link href={'/'}>
+            <Image src='http://ddualumni.org/Content/Public/images/ddu_logo.png'
                  width={50}
                  height={50}
                  alt={"DDU LOGO"}
           />
+            </Link>
         </NavbarBrand>
   
         {status==='authenticated' && data?.role === 'STUDENT' && (
@@ -68,7 +70,7 @@ export default function App() {
             </Link>
           </NavbarItem>
           <NavbarItem isActive={activeTab === 'About'}>
-            <Link color="foreground" onClick={() => handleClick('About')} href="/" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
+            <Link color="foreground" onClick={() => handleClick('About')} href="/about" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
               About
             </Link>
           </NavbarItem>
@@ -91,7 +93,7 @@ export default function App() {
                     </Link>
                 </NavbarMenuItem>
                 <NavbarMenuItem isActive={activeTab === 'About'}>
-                    <Link color="foreground" onClick={() => handleClick('About')} href="/" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
+                    <Link color="foreground" onClick={() => handleClick('About')} href="/about" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
                         About
                     </Link>
                 </NavbarMenuItem>
@@ -117,7 +119,7 @@ export default function App() {
           <NavbarItem isActive={activeTab === 'About'}>
             <Link color="foreground" onClick={()=> {
                 handleClick("About")
-            }}  href="/" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
+            }}  href="/about" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
               About
             </Link>
           </NavbarItem>
@@ -140,7 +142,7 @@ export default function App() {
                       <NavbarMenuItem isActive={activeTab === 'About'}>
                           <Link color="foreground" onClick={()=> {
                               handleClick("About")
-                          }}  href="/" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
+                          }}  href="/about" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
                               About
                           </Link>
                       </NavbarMenuItem>

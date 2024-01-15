@@ -6,15 +6,18 @@ import { toast } from "react-toastify";
 import { useRouter } from 'next/navigation'
 import { Button, Input } from "@nextui-org/react";
 import { LuEye, LuEyeOff } from "react-icons/lu";
+import {Spinner} from "@nextui-org/react";
 
 const LoginUser = () => {
    const [userInfo, setUserInfo] = useState({ username: '', password: '' })
+   const [loading, setLoading] = useState(false)
    const router = useRouter()
    const [isVisible, setIsVisible] = useState(false);
    const toggleVisibility = () => setIsVisible(!isVisible);
 
    const handleSubmit = async (e) => {
       e.preventDefault()
+        setLoading(true)
       const res = await signIn('credentials', {
          username: userInfo.username,
          password: userInfo.password,
@@ -31,6 +34,7 @@ const LoginUser = () => {
                progress: undefined,
                theme: "dark",
             })
+            setLoading(false)
          } else {
             toast.success("Successful SignIn", {
                position: "top-center",
@@ -42,6 +46,7 @@ const LoginUser = () => {
                progress: undefined,
                theme: "dark",
             });
+            setLoading(false)
             router.push('/dashboard')
          }
       })
@@ -59,12 +64,7 @@ const LoginUser = () => {
                   <p className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                      Login to your account
                   </p><div>
-                     {/* <label className="block mb-2 text-sm font-medium text-gray-900">
-                 Your username
-               </label> */}
-                     {/* <input
-                 onChange={(e) => setUserInfo({ ...userInfo, username: e.target.value })}
-                 placeholder="JohnDoe" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text" /> */}
+
                      <Input
                         isClearable={"true"}
                         type='text'
@@ -77,9 +77,6 @@ const LoginUser = () => {
 
                   </div>
                   <div>
-                     {/* <label className="block mb-2 text-sm font-medium text-gray-900">
-                 Password
-               </label> */}
 
                      <Input
 
@@ -97,17 +94,12 @@ const LoginUser = () => {
                         type={isVisible ? "text" : "password"}
 
                      />
-                     {/* <input
-                 onChange={(e) => setUserInfo({ ...userInfo, password: e.target.value })}
-                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="••••••••" id="password" type="password" /> */}
                   </div>
 
 
-                  {/* <button onClick={handleSubmit} className="w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  focus:ring-blue-800 text-white" type="submit">
-               Login
-             </button> */}
+
                   <Button onClick={handleSubmit} style={{ backgroundColor: '#F55734', color: '#FFFFFF' }} className='w-full' type='submit'>
-                     Login
+                     {loading ? <Spinner size={"sm"} color={'default'}/>: "Login"}
                   </Button>
                </div>
             </div>
