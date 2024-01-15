@@ -42,7 +42,7 @@ export default function App() {
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                 className="sm:hidden"
             />
-          <Image src={'https://ddualumni.org/Content/Public/images/ddu_logo.png'}
+          <Image src='http://ddualumni.org/Content/Public/images/ddu_logo.png'
                  width={50}
                  height={50}
                  alt={"DDU LOGO"}
