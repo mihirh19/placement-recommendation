@@ -8,7 +8,7 @@ export default function Home() {
     <div>
       <div className={styles.main}>
         <div className={styles.content}>
-          <div className={styles.heading}>Connecting Talent with Tomorrow's Opportunities</div>
+          <div className={styles.heading}>{"Connecting Talent with Tomorrow's Opportunities"}</div>
           <div className={styles.desc}>Your gateway to career success! Explore job opportunities, predict your ideal company match, and gain insights from alumni reviews. Empower your journey with personalized guidance and community-driven wisdom.</div>
         </div>
         <div className={styles.image}>
