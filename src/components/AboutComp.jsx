@@ -21,7 +21,7 @@ const AboutComp = () => {
                 <h3>Our Mission</h3>
                 <p>
                     We aim to revolutionize the placement experience by offering innovative solutions that consider
-                    students' skills, Competitive Programming (CP) rank, Cumulative Performance Index (CPI), and project experiences to predict
+                    {" student's"} skills, Competitive Programming (CP) rank, Cumulative Performance Index (CPI), and project experiences to predict
                     the companies where they are likely to excel.
                 </p>
 
