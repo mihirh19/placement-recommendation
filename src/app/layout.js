@@ -6,16 +6,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify'
 import { NextUIProvider } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import Footer from '@/components/Footer';
 
-export default function RootLayout({ children}) {
+
+export default function RootLayout({ children }) {
 
     const { asPath } = useRouter();
-  const transitionSpringPhysics = {
-    type: "spring",
-    mass: 0.2,
-    stiffness: 80,
-    damping: 10,
-  };
+    const transitionSpringPhysics = {
+        type: "spring",
+        mass: 0.2,
+        stiffness: 80,
+        damping: 10,
+    };
     const variants = {
         scaleDown: {
             scale: 0.8,
@@ -56,39 +58,40 @@ export default function RootLayout({ children}) {
             }
         },
     };
-  const transitionColor = "black";
-  // const { status, data } = useSession();
-  return (
-    
-    <SessionProvider>
-       
-      <html lang="en">
-        <body>
-        {/*<NavbarWrapper />*/}
-        <Navbar/>
-          {/* {status === "authenticated" && data?.role === "ADMIN" && (<Navbar userRole={'ADMIN'}/>)}
+    const transitionColor = "black";
+    // const { status, data } = useSession();
+    return (
+
+        <SessionProvider>
+
+            <html lang="en">
+                <body>
+                    {/*<NavbarWrapper />*/}
+                    <Navbar />
+                    {/* {status === "authenticated" && data?.role === "ADMIN" && (<Navbar userRole={'ADMIN'}/>)}
           {status === "authenticated" && data?.role === "STUDENT" && (<Navbar userRole={'STUDENT'}/>)} */}
 
-                <NextUIProvider>
-                    <ToastContainer
-                        position="top-center"
-                        autoClose={1500}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                        theme="dark"
-                    />
-                    {children}
-                </NextUIProvider>
+                    <NextUIProvider>
+                        <ToastContainer
+                            position="top-center"
+                            autoClose={1500}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="dark"
+                        />
+                        {children}
+                        <Footer />
+                    </NextUIProvider>
 
-        </body>
-      </html>
-    </SessionProvider>
+                </body>
+            </html>
+        </SessionProvider>
 
 
-  )
+    )
 }
