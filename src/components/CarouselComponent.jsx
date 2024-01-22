@@ -105,7 +105,7 @@ const slidesData = [
     logo: 'https://storage.googleapis.com/5paisa-prod-storage/files/2022-02/Reliance%20Industries.jpg'
   },
   {
-    companyName: 'LnT Technology Service',
+    companyName: 'LnT Technology',
     logo: 'https://www.javatpoint.com/fullformpages/images/lt.png'
   },
   {
@@ -137,7 +137,7 @@ export default function CarouselComponent() {
             <SwiperSlide key={index}>
               <Card className="p-4 mt-3">
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                  <h4 className="font-bold text-large">{slide.companyName}</h4>
+                  <h4 className="font-bold text-medium">{slide.companyName}</h4>
                 </CardHeader>
                 <CardBody style={{ width: "100px", height: "100px", overflow: "hidden" }} className="overflow-visible py-2">
                   <Image
