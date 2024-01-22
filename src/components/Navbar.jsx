@@ -64,6 +64,11 @@ export default function App() {
               Dashboard
             </Link>
           </NavbarItem>
+          <NavbarMenuItem isActive={activeTab === 'JobsList'}>
+            <Link color="foreground" onClick={() => handleClick('JobsList')} href={'/jobsList'} style={{ color: activeTab === "JobsList" ? "#F55734" : "inherit" }}>
+              Jobs
+            </Link>
+          </NavbarMenuItem>
           <NavbarItem isActive={activeTab === 'Reviews'}>
             <Link color="foreground" onClick={() => handleClick('Reviews')} href="/" style={{ color: activeTab === "Reviews" ? "#F55734" : "inherit" }}>
               Reviews
@@ -85,6 +90,11 @@ export default function App() {
                 <NavbarMenuItem isActive={activeTab === 'Dashboard'}>
                     <Link color="foreground" onClick={() => handleClick('Dashboard')} href={'/dashboard'} style={{ color: activeTab === "Dashboard" ? "#F55734" : "inherit" }}>
                         Dashboard
+                    </Link>
+                </NavbarMenuItem>
+                <NavbarMenuItem isActive={activeTab === 'JobsList'}>
+                    <Link color="foreground" onClick={() => handleClick('JobsList')} href={'/jobsList'} style={{ color: activeTab === "JobsList" ? "#F55734" : "inherit" }}>
+                        Jobs List
                     </Link>
                 </NavbarMenuItem>
                 <NavbarMenuItem isActive={activeTab === 'Reviews'}>

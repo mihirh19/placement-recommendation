@@ -1,0 +1,50 @@
+.container {
+    position: relative;
+  }
+  
+  .bg_image {
+    background-image: url('https://media.istockphoto.com/id/1496663123/photo/portrait-of-business-team.jpg?s=1024x1024&w=is&k=20&c=f7KXUqPfiTVLHz_05Fy53sj_WRhX4ZZkb5d-ILRuN7E='); 
+    height: 300px;
+    width: 100%;
+    background-size: cover; 
+    opacity: 0.5;
+  }
+  
+  .c1 {
+    position: absolute;
+    top: 65%; 
+    left: 50%;
+    width: 80%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255); 
+    padding: 20px; 
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-around;
+  }
+
+  .btn{
+    width: 30%;
+  }
+
+  .list_container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 80%;
+    background-color: rgba(253, 80, 6, 0.114);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 70px;
+    margin-left: 125px;
+    }
+  .des_company{
+    flex:1;
+  }
+  .tech{
+    flex:1;
+  }
+  

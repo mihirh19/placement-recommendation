@@ -2,97 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
-  .about-container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-  }
-  
-  .about-header {
-    background-color: #F55734;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-  }
-  .about-header h1{
-    font-weight: bold;
-  }
-  
-  header h1 {
-    margin: 0;
-  }
-  
-  header p {
-    margin: 10px 0 0;
-  }
-  
+.about-container, section {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+}
+.about-header {
+  background-color: #F55734;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header p {
+  margin: 10px 0 0;
+}
+
+section h2, section h3 {
+  color: #F55734;
+  font-weight: bold;
+}
+
+section p {
+  line-height: 1.5;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
   section {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
+    padding: 10px;
   }
-  
+}
+
+@media (max-width: 400px) {
+  header, section {
+    padding: 10px;
+  }
+
+  header h1 {
+    font-size: 1.5em;
+  }
+
+  header p {
+    font-size: 0.8em;
+  }
+
   section h2 {
-    color: #F55734;
-    font-weight: bold;
-  }
-  
-  section p {
-    line-height: 1.5;
+    font-size: 1.5em;
   }
 
   section h3 {
-    color: #F55734;
-    font-weight: bold;
+    font-size: 1.2em;
   }
-  
-  /* List Styles */
+
+  section p {
+    font-size: 0.9em;
+  }
+
   ul {
-    list-style-type: none;
-    padding: 0;
+    padding-left: 10px;
   }
-  
+
   li {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   }
-  
-  @media (max-width: 600px) {
-    section {
-      padding: 10px;
-    }
-  }
-  
-  @media (max-width: 400px) {
-    header {
-      padding: 10px;
-    }
-  
-    header h1 {
-      font-size: 1.5em;
-    }
-  
-    header p {
-      font-size: 0.8em;
-    }
-  
-    section h2 {
-      font-size: 1.5em;
-    }
-  
-    section h3 {
-      font-size: 1.2em;
-    }
-  
-    section p {
-      font-size: 0.9em;
-    }
-  
-    ul {
-      padding-left: 10px;
-    }
-  
-    li {
-      margin-bottom: 5px;
-    }
-  }
-  
+}
