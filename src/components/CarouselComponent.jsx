@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -6,24 +6,10 @@ import 'swiper/css/navigation';
 import { Card, CardHeader, CardBody, Image } from "@nextui-org/react";
 import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules';
 import { slidesData } from '@/data/CrouselCompany';
+import { useWindowSize } from "@uidotdev/usehooks";
 
 export default function CarouselComponent() {
-    const [windowSize, setWindowSize] = useState([
-        window.innerWidth,
-        window.innerHeight,
-    ]);
-
-    useEffect(() => {
-        const handleWindowResize = () => {
-            setWindowSize([window.innerWidth, window.innerHeight]);
-        };
-
-        window.addEventListener('resize', handleWindowResize);
-
-        return () => {
-            window.removeEventListener('resize', handleWindowResize);
-        };
-    }, []);
+    const screenSize = useWindowSize();
 
   return (
     <>
@@ -40,7 +26,7 @@ export default function CarouselComponent() {
         navigation={true}
         modules={[Autoplay, Pagination, Navigation, EffectFade]}
         className={"mySwiper"}
-        slidesPerView={windowSize[0]> 768 ? 6 : 1}
+        slidesPerView={screenSize.width> 768 ? 6 : 1}
       >
         <div className="gap-4 lg:grid">
           {slidesData.map((slide, index) => (
