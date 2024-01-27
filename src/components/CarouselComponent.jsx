@@ -26,7 +26,7 @@ export default function CarouselComponent() {
         navigation={true}
         modules={[Autoplay, Pagination, Navigation, EffectFade]}
         className={"mySwiper"}
-        slidesPerView={screenSize.width> 768 ? 6 : 1}
+        slidesPerView={screenSize.width> 768 ? 6 : 2}
       >
         <div className="gap-4 lg:grid">
           {slidesData.map((slide, index) => (
