@@ -9,18 +9,20 @@ import { LuEye, LuEyeOff } from "react-icons/lu";
 import {Spinner} from "@nextui-org/react";
 
 const LoginUser = () => {
-   const [userInfo, setUserInfo] = useState({ username: '', password: '' })
-   const [loading, setLoading] = useState(false)
+   const [allState, setAllState] = useState({
+      userInfo : {username: '', password: ''},
+      loading: false,
+      isVisible: false
+   })
    const router = useRouter()
-   const [isVisible, setIsVisible] = useState(false);
-   const toggleVisibility = () => setIsVisible(!isVisible);
+   const toggleVisibility = () => setAllState({ ...allState, isVisible: !allState.isVisible });
 
    const handleSubmit = async (e) => {
       e.preventDefault()
-        setLoading(true)
+      setAllState({ ...allState, loading: true })
       const res = await signIn('credentials', {
-         username: userInfo.username,
-         password: userInfo.password,
+         username: allState.userInfo.username,
+         password: allState.userInfo.password,
          redirect: false
       }).then((res) => {
          if (res.error) {
@@ -34,7 +36,7 @@ const LoginUser = () => {
                progress: undefined,
                theme: "dark",
             })
-            setLoading(false)
+            setAllState({ ...allState, loading: false })
          } else {
             toast.success("Successful SignIn", {
                position: "top-center",
@@ -46,7 +48,7 @@ const LoginUser = () => {
                progress: undefined,
                theme: "dark",
             });
-            setLoading(false)
+            setAllState({ ...allState, loading: false })
             router.push('/dashboard')
          }
       })
@@ -71,9 +73,9 @@ const LoginUser = () => {
                         variant='faded'
                         label='Username'
                         id='username'
-                        value={userInfo.username}
-                        onChange={(e) => setUserInfo({ ...userInfo, username: e.target.value })}
-                        onClear={(e) => setUserInfo({ ...userInfo, username: "" })} />
+                        value={allState.userInfo.username}
+                        onChange={(e) => setAllState({ ...allState, userInfo: { ...allState.userInfo, username: e.target.value } })}
+                        onClear={(e) => setAllState({ ...allState, userInfo: { ...allState.userInfo, username: "" } })} />
 
                   </div>
                   <div>
@@ -82,24 +84,24 @@ const LoginUser = () => {
 
                         variant='faded'
                         label='Password'
-                        value={userInfo.password}
+                        value={allState.userInfo.password}
                         id='password'
-                        onChange={(e) => setUserInfo({ ...userInfo, password: e.target.value })}
+                        onChange={(e) => setAllState({ ...allState, userInfo: { ...allState.userInfo, password: e.target.value } })}
 
                         endContent={
                            <button className='focus:outline-none' type='button' onClick={toggleVisibility}>
-                              {isVisible ? <LuEye /> : <LuEyeOff />}
+                              {allState.isVisible ? <LuEye /> : <LuEyeOff />}
                            </button>
                         }
-                        type={isVisible ? "text" : "password"}
+                        type={allState.isVisible ? "text" : "password"}
 
                      />
                   </div>
 
 
 
-                  <Button onClick={handleSubmit} style={{ backgroundColor: '#F55734', color: '#FFFFFF' }} className='w-full' type='submit'>
-                     {loading ? <Spinner size={"sm"} color={'default'}/>: "Login"}
+                  <Button onClick={handleSubmit} style={{ backgroundColor: '#F55734', color: '#FFFFFF' }} className='w-full' type='submit' isDisabled={allState.loading}>
+                     {allState.loading ? <Spinner size={"sm"} color={'default'}/>: "Login"}
                   </Button>
                </div>
             </div>

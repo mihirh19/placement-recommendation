@@ -21,6 +21,7 @@
     "@nextui-org/system": "^2.0.15",
     "@nextui-org/theme": "^2.1.17",
     "@prisma/client": "^5.7.1",
+    "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
     "dayjs": "^1.11.10",
