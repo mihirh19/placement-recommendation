@@ -29,7 +29,7 @@ export default function Chart() {
       <div style={{ width: '100%', flexGrow: 1, overflow: 'hidden' }}>
         <LineChart
           width={500}
-          height={300}
+          height={200}
           data={data}
           margin={{
             top: 16,
