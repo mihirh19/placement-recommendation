@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import Title from './Title';
+import Typography from '@mui/material/Typography';
 
 function preventDefault(event) {
   event.preventDefault();
@@ -10,7 +10,7 @@ function preventDefault(event) {
 export default function Deposits() {
   return (
     <React.Fragment>
-      <Title>Recent Deposits</Title>
+      <Typography variant="h6" style={{ color: "#F55734" }}>Recent Deposits</Typography>
       <Typography component="p" variant="h4">
         $3,024.00
       </Typography>
@@ -18,7 +18,7 @@ export default function Deposits() {
         on 15 March, 2019
       </Typography>
       <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
+        <Link color="#F55734" href="#" onClick={preventDefault}>
           View balance
         </Link>
       </div>

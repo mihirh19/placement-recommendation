@@ -94,7 +94,7 @@ export default function Dash() {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar style={{marginTop:"65px"}} position="absolute" open={open}>
+        <AppBar style={{marginTop:"64px", backgroundColor:"#F55734"}} position="absolute" open={open}>
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed

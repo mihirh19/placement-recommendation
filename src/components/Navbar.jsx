@@ -112,11 +112,11 @@ export default function App() {
           )}
           {status==='authenticated' && data?.role === 'ADMIN' && (<>
           <NavbarContent className="hidden sm:flex gap-10">
-          <NavbarItem isActive={activeTab === 'Home'}>
-            <Link href="/" onClick={()=>{
-                handleClick("Home")
-            }}  style={{ color: activeTab === "Home" ? "#F55734" : "inherit" }}>
-              Home
+          <NavbarItem isActive={activeTab === 'Dashboard'}>
+            <Link href="/dashboard" onClick={()=>{
+                handleClick("Dashboard")
+            }}  style={{ color: activeTab === "Dashboard" ? "#F55734" : "inherit" }}>
+              Dashboard
             </Link>
           </NavbarItem>
           <NavbarItem isActive={activeTab === 'AddStudent'}>
@@ -135,11 +135,11 @@ export default function App() {
           </NavbarItem>
           </NavbarContent>
                   <NavbarMenu>
-                      <NavbarMenuItem isActive={activeTab === 'Home'}>
-                          <Link href="/" onClick={()=>{
-                              handleClick("Home")
-                          }}  style={{ color: activeTab === "Home" ? "#F55734" : "inherit" }}>
-                              Home
+                      <NavbarMenuItem isActive={activeTab === 'Dashboard'}>
+                          <Link href="/dashboard" onClick={()=>{
+                              handleClick("Dashboard")
+                          }}  style={{ color: activeTab === "Dashboard" ? "#F55734" : "inherit" }}>
+                              Dashboard
                           </Link>
                       </NavbarMenuItem>
                       <NavbarMenuItem isActive={activeTab === 'AddStudent'}>

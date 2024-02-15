@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-
-import Title from './Title';
+import Typography from '@mui/material/Typography';
 
 // Generate Sales Data
 function createData(time, amount) {
@@ -26,7 +25,7 @@ export default function Chart() {
 
   return (
     <React.Fragment>
-      <Title>Today</Title>
+      <Typography variant="h6" style={{ color: "#F55734" }}>Today</Typography>
       <div style={{ width: '100%', flexGrow: 1, overflow: 'hidden' }}>
         <LineChart
           width={500}
@@ -43,7 +42,7 @@ export default function Chart() {
           <XAxis dataKey="time" />
           <YAxis label={{ value: 'Sales ($)', angle: -90, position: 'insideLeft' }} />
           <Tooltip />
-          <Line type="monotone" dataKey="amount" stroke={theme.palette.primary.light} />
+          <Line type="monotone" dataKey="amount" stroke="#F55734" />
         </LineChart>
       </div>
     </React.Fragment>
