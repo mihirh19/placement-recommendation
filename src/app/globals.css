@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .about-container, section {
   max-width: 800px;
   margin: 20px auto;

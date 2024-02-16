@@ -66,6 +66,7 @@ export default function RootLayout({ children }) {
 
             <html lang="en">
                 <body>
+                    
                     {/*<NavbarWrapper />*/}
                     <Navbar />
                     {/* {status === "authenticated" && data?.role === "ADMIN" && (<Navbar userRole={'ADMIN'}/>)}

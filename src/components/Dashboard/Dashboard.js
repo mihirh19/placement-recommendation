@@ -21,6 +21,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import styles from "../../app/dashboard/page.module.css"
 
 function Copyright(props) {
   return (
@@ -91,6 +92,7 @@ export default function Dash() {
   };
 
   return (
+
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
