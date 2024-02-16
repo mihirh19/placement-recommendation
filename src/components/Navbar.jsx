@@ -16,6 +16,7 @@ import {
 } from "@nextui-org/react";
 import {SearchIcon} from "./SearchIcon.jsx";
 import Link from "next/link";
+import Contact from "./Contact.jsx";
 import {useRouter} from "next/navigation";
 import {signOut, useSession} from "next-auth/react";
 import NextImage from "next/image";
@@ -25,7 +26,8 @@ import {toast} from "react-toastify";
 export default function App() {
   const {status , data} = useSession();
   const [activeTab, setActiveTab] = useState('Home');
-    const router = useRouter();
+  const router = useRouter();
+
 
   const handleClick = (tab) => {
     setActiveTab(tab);
@@ -203,12 +205,8 @@ export default function App() {
                   <p className="font-semibold">Signed in as</p>
                   <p className="font-semibold">{data?.username}</p>
                 </DropdownItem>
-                <DropdownItem key="settings">My Settings</DropdownItem>
-                <DropdownItem key="team_settings">Team Settings</DropdownItem>
-                <DropdownItem key="analytics">Analytics</DropdownItem>
-                <DropdownItem key="system">System</DropdownItem>
-                <DropdownItem key="configurations">Configurations</DropdownItem>
-                <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
+                <DropdownItem href="/dashboard" key="analytics">Analytics</DropdownItem>
+                <DropdownItem key="help_and_feedback"><Link href="/Contact">Help & Feedback</Link></DropdownItem>
                 <DropdownItem key="logout" color="danger" onClick={() => signOut({redirect:false}).then(() => {
                   toast.info('Sign Out Success', {
                     position: "top-center",
