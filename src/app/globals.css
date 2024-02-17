@@ -3,11 +3,17 @@
 @tailwind utilities;
 
 
-.about-container, section {
+::-webkit-scrollbar {
+  display: none;
+}
+
+.about-container,
+section {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
 }
+
 .about-header {
   background-color: #F55734;
   color: #fff;
@@ -23,7 +29,8 @@ header p {
   margin: 10px 0 0;
 }
 
-section h2, section h3 {
+section h2,
+section h3 {
   color: #F55734;
   font-weight: bold;
 }
@@ -48,7 +55,9 @@ li {
 }
 
 @media (max-width: 400px) {
-  header, section {
+
+  header,
+  section {
     padding: 10px;
   }
 

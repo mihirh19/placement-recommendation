@@ -14,15 +14,7 @@ export default function Dashboard() {
       router.push("/login");
    }
    if (status === "authenticated") {
-      if (data?.role === Role.ADMIN) {
-         return (
-            <Dash />
-         )
-      }
-      else {
-         router.push("/")
-      }
-
+      <Dash />
    }
 
 }
