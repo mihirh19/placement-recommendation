@@ -14,7 +14,9 @@ export default function Dashboard() {
       router.push("/login");
    }
    if (status === "authenticated") {
-      <Dash />
+      return (
+         <Dash />
+      )
    }
 
 }
