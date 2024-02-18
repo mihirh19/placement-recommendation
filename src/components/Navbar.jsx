@@ -209,7 +209,9 @@ export default function App() {
                     <p className="font-semibold">Signed in as</p>
                     <p className="font-semibold">{data?.username}</p>
                   </DropdownItem>
-                  <DropdownItem href="/dashboard" key="analytics">Analytics</DropdownItem>
+                  <DropdownItem key="analytics" onClick={() => {
+                    router.push('/dashboard');
+                  }}>Analytics</DropdownItem>
                   <DropdownItem key="help_and_feedback"><Link href="/Contact">Help & Feedback</Link></DropdownItem>
                   <DropdownItem key="logout" color="danger" onClick={() => signOut({ redirect: false }).then(() => {
                     toast.info('Sign Out Success', {
