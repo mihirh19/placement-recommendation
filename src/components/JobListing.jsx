@@ -1,15 +1,56 @@
 'use client'
 
-import React from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import styles from '../app/jobsList/page.module.css'
 import { Button, Select, SelectItem } from "@nextui-org/react"
 import SelectTech from "../components/SelectTech"
+import axios from "axios"
 
 export const types = [
     { id: 1, name: "on-campus" },
     { id: 2, name: "off-campus" }]
 
+
+
 const JobListing = () => {
+    // const [jobs, setJobs] = useState(null);
+
+    // useEffect(() => {
+
+    //     async function getJobs() {
+    //         if (jobs === null) {
+
+    //             const options = {
+    //                 method: 'GET',
+    //                 url: 'https://jobs-api14.p.rapidapi.com/list',
+    //                 params: {
+    //                     query: 'Web Developer',
+    //                     location: 'United States',
+    //                     distance: '1.0',
+    //                     language: 'en_GB',
+    //                     remoteOnly: 'false',
+    //                     datePosted: 'month',
+    //                     employmentTypes: 'fulltime;parttime;intern;contractor'
+    //                 },
+    //                 headers: {
+    //                     'X-RapidAPI-Key': '4e7a26a35emsh002c0d37c284535p176d19jsn80fd87d7d1b2',
+    //                     'X-RapidAPI-Host': 'jobs-api14.p.rapidapi.com'
+    //                 }
+    //             };
+
+    //             try {
+    //                 const response = await axios.request(options);
+    //                 setJobs(response.data.jobs);
+    //             } catch (error) {
+    //                 console.error(error);
+    //             }
+    //         }
+    //     }
+
+    //     getJobs();
+
+
+    // }, [jobs])
     return (
         <div className={styles.container}>
             <div className={styles.bg_image}></div>
@@ -37,6 +78,26 @@ const JobListing = () => {
                 </Select>
                 <Button className={styles.btn} variant='solid' style={{ backgroundColor: "#F55734", color: "white", marginTop: "8px" }}>Search</Button>
             </div>
+            {/* {jobs && jobs.map((job) => {
+                return (
+                    <Fragment key={job.id}>
+                        <div className={styles.list_container}>
+                            <div className={styles.des_company}>
+                                <h1>{jobs.title}</h1>
+                                <h2>{jobs.company}</h2>
+                            </div>
+                            <div className={styles.tech}>
+                                <p>{jobs.description}</p>
+                            </div>
+                            <div className={styles.time_apply}>
+                                <p>{jobs.employmentType}</p>
+                                <Button variant='light' border='md' style={{ color: "#F55734" }}>apply</Button>
+                            </div>
+                        </div>
+                    </Fragment>
+                )
+            })} */}
+
             <div className={styles.list_container}>
                 <div className={styles.des_company}>
                     <h1>Full Stack Developer</h1>
@@ -50,7 +111,7 @@ const JobListing = () => {
                     <Button variant='light' border='md' style={{ color: "#F55734" }}>apply</Button>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
