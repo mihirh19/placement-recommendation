@@ -7,7 +7,7 @@ import { getServerSession } from 'next-auth';
 export async function POST(req, res) {
 
    try {
-      const { username, password, emailaddress, studentid, dateofbirth, phonenumber } = await req.json();
+      const { username, password, emailaddress, studentid, dateofbirth, phonenumber, name } = await req.json();
 
       // check if user exists
       // const user = await fetch(`${process.env.API_URL}/api/userExists`, {
@@ -44,6 +44,7 @@ export async function POST(req, res) {
             password: hashedPassword,
             email: emailaddress,
             role: "STUDENT",
+            name: name,
             studentId: studentid,
             dateofbirth: dateofbirth,
             phonenumber: phonenumber

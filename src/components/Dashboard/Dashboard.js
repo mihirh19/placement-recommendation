@@ -17,7 +17,7 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
+import { mainListItems, secondaryListItems, adminMainListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
@@ -96,7 +96,7 @@ export default function Dash() {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar style={{marginTop:"64px", backgroundColor:"#F55734"}} position="absolute" open={open}>
+        <AppBar style={{ marginTop: "64px", backgroundColor: "#F55734" }} position="absolute" open={open}>
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
@@ -145,7 +145,7 @@ export default function Dash() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            {adminMainListItems}
             <Divider sx={{ my: 1 }} />
             {secondaryListItems}
           </List>

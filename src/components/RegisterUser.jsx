@@ -17,6 +17,7 @@ const RegisterUser = () => {
   const [userInfo, setUserInfo] = useState({
     username: '',
     password: '',
+    name: "",
     studentid: '',
     emailaddress: '',
     dateofbirth: new Date(),
@@ -71,6 +72,7 @@ const RegisterUser = () => {
           setUserInfo({
             username: '',
             password: '',
+            name: '',
             studentid: '',
             emailaddress: '',
             dateofbirth: '',
@@ -117,6 +119,7 @@ const RegisterUser = () => {
     { na: 'Email Address', type: 'email' },
     { na: 'DateOfBirth', type: 'text' },
     { na: 'Phone Number', type: 'number' },
+    { na: "Name", type: "text" },
     // 'User Name',
     // 'Password',
     // 'Student ID',
