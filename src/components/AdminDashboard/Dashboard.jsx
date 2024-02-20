@@ -1,19 +1,29 @@
 import React, { useState } from 'react'
 import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
-import StudentsTable from './students/StudentsTable';
+import { PiStudent } from "react-icons/pi";
+import Studenttable from './studentstable/Studenttable';
 const Dashboard = () => {
    const [selected, setSelected] = useState("students");
    return (
-      <div className="flex w-full flex-col text-black">
+      <div className="flex w-full flex-col">
          <Tabs
             aria-label="Options"
             selectedKey={selected}
             onSelectionChange={setSelected}
-            color='primary'
-            className='w-full flex flex-col '
+            color='danger'
+            className='flex flex-col '
+            size={'lg'}
+            radius='none'
+            fullWidth
+            variant='underlined'
          >
-            <Tab key="students" title="Students">
-               <StudentsTable />
+            <Tab key="students" title={
+               <div className="flex items-center space-x-2">
+                  <PiStudent />
+                  <span>Students</span>
+               </div>
+            }>
+               <Studenttable />
             </Tab>
             <Tab key="music" title="Music">
                <Card>
