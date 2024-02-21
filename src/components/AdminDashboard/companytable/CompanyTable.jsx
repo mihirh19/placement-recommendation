@@ -38,10 +38,10 @@ import { useRouter } from "next/navigation";
 // };
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "studentId", "email", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["name", "phonenumber", "email", "actions", "dateofbirth"];
 
-export default function Studenttabl() {
-   const { data, error, isLoading } = useSWR('api/students/getallstudents', fetcher)
+export default function CompanyTable() {
+   const { data, error, isLoading } = useSWR('api/recruiter/getallrecruiter', fetcher)
    const router = useRouter();
    let users = []
    if (data) {
@@ -53,7 +53,6 @@ export default function Studenttabl() {
       id: "",
       name: "",
       email: "",
-      studentId: "",
       dateofbirth: new Date(),
       phonenumber: ""
    })
@@ -122,11 +121,12 @@ export default function Studenttabl() {
                      </DropdownTrigger>
                      <DropdownMenu>
                         <DropdownItem onClick={async (e) => {
-                           setUserInfo({ id: user.id, name: user.name, email: user.email, studentId: user.studentId, dateofbirth: user.dateofbirth, phonenumber: user.phonenumber });
+
+                           setUserInfo({ id: user.id, name: user.name, email: user.email, dateofbirth: user.dateofbirth, phonenumber: user.phonenumber });
                            onOpen();
                         }}>Edit</DropdownItem>
                         <DropdownItem onClick={async (e) => {
-                           await fetch("/api/students/deletestudent", {
+                           await fetch("/api/recruiter/deleterecruiter", {
                               method: 'DELETE',
                               headers: {
                                  'Content-Type': 'application/json'
@@ -135,7 +135,7 @@ export default function Studenttabl() {
                            }).then(
                               (res) => {
                                  if (res.status === 200) {
-                                    toast.success("Student deleted successFully", {
+                                    toast.success("Recruiter deleted successFully", {
                                        position: "top-center",
                                        autoClose: 1500,
                                        hideProgressBar: false,
@@ -146,6 +146,7 @@ export default function Studenttabl() {
                                        theme: "dark",
                                     })
                                  }
+
                               }
                            ).catch((err) => {
                               toast.error("Something went wrong", {
@@ -160,7 +161,6 @@ export default function Studenttabl() {
                               })
 
                            })
-
 
                         }}
                            className="text-danger"
@@ -261,7 +261,7 @@ export default function Studenttabl() {
                   </Dropdown>
                   <Button
                      onClick={() => {
-                        router.push('/register')
+                        router.push('/registerrecruiter')
                      }}
                      className="bg-foreground text-background"
                      endContent={<PlusIcon />}
@@ -352,7 +352,7 @@ export default function Studenttabl() {
             <ModalContent>
                {(onClose) => (
                   <>
-                     <ModalHeader className="flex flex-col gap-1">Edit Student</ModalHeader>
+                     <ModalHeader className="flex flex-col gap-1">Edit Recruiter</ModalHeader>
                      <ModalBody>
                         <Input
                            autoFocus
@@ -370,14 +370,6 @@ export default function Studenttabl() {
                            onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
                            variant="bordered"
                         />
-                        <Input
-                           name="studentId"
-                           label="StudentID"
-                           type="text"
-                           value={userInfo.studentId}
-                           onChange={(e) => setUserInfo({ ...userInfo, studentId: e.target.value })}
-                           variant="bordered"
-                        />
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                            <DatePicker
                               // calendarIcon={<CiCalendarDate />}
@@ -388,7 +380,7 @@ export default function Studenttabl() {
                               }
 
                               // placeholderText={`Enter ${detail}`}
-                              label="Date of Birth"
+                              label="Company Created"
                               // className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                               name="dateofbirth"
                               value={dayjs(userInfo.dateofbirth)}
@@ -406,13 +398,13 @@ export default function Studenttabl() {
                      </ModalBody>
                      <ModalFooter>
                         <Button color="danger" variant="flat" onClick={(e) => {
-                           setUserInfo({ id: "", name: "", email: "", studentId: "", dateofbirth: new Date(), phonenumber: "" });
+                           setUserInfo({ id: "", name: "", email: "", dateofbirth: new Date(), phonenumber: "" });
                            onClose();
                         }}>
                            Close
                         </Button>
                         <Button color="primary" onClick={async (e) => {
-                           await fetch("/api/students/editstudent", {
+                           await fetch("/api/recruiter/editrecruiter", {
                               method: 'PUT',
                               headers: {
                                  'Content-Type': 'application/json'
@@ -421,7 +413,7 @@ export default function Studenttabl() {
                            }).then(
                               (res) => {
                                  if (res.status === 200) {
-                                    toast.success("Student updated successFully", {
+                                    toast.success("REcruiter updated successFully", {
                                        position: "top-center",
                                        autoClose: 1500,
                                        hideProgressBar: false,

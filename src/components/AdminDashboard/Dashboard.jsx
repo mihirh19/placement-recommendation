@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
 import { PiStudent } from "react-icons/pi";
 import Studenttable from './studentstable/Studenttable';
+import { GoOrganization } from "react-icons/go";
+import CompanyTable from './companytable/CompanyTable';
 const Dashboard = () => {
    const [selected, setSelected] = useState("students");
    return (
@@ -25,19 +27,13 @@ const Dashboard = () => {
             }>
                <Studenttable />
             </Tab>
-            <Tab key="music" title="Music">
-               <Card>
-                  <CardBody>
-                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                  </CardBody>
-               </Card>
-            </Tab>
-            <Tab key="videos" title="Videos">
-               <Card>
-                  <CardBody>
-                     Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </CardBody>
-               </Card>
+            <Tab key="company" title={
+               <div className="flex items-center space-x-2">
+                  <GoOrganization />
+                  <span>Company</span>
+               </div>
+            }>
+               <CompanyTable />
             </Tab>
          </Tabs>
       </div>
