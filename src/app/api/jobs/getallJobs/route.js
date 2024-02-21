@@ -18,7 +18,7 @@ export async function GET(req, res) {
    try {
       const jobs = await prisma.job.findMany({
          include: {
-            User: {
+            recruiter: {
                select: {
                   id: true,
                   username: true,

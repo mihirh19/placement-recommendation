@@ -1,7 +1,7 @@
 'use client'
 
-import UserInfo from "../../components/UserInfo";
 // import Dash from "@/components/Dashboard/Dashboard";
+import RecruiterDash from "../../components/RecruiterDashboard/RecruiterDash";
 import Dash from "@/components/AdminDashboard/Dashboard";
 import { Role } from "@prisma/client";
 import { useSession } from "next-auth/react";
@@ -14,10 +14,23 @@ export default function Dashboard() {
 
       router.push("/login");
    }
-   if (status === "authenticated") {
+   if (status === "authenticated" && data?.role === Role.ADMIN) {
       return (
          <Dash />
       )
    }
+   if (status === "authenticated" && data?.role === Role.RECRUITER) {
+      return (
+         <RecruiterDash />
+      )
+   }
+   else {
+      return (
+         <div>
+            Loading...
+         </div>
+      )
+   }
+
 
 }

@@ -6,7 +6,6 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../../auth/[...nextauth]/route';
 
 export async function DELETE(req, res) {
-   const jobId = req.query.id;
 
    const session = await getServerSession(authOptions);
    if (session) {
@@ -17,12 +16,14 @@ export async function DELETE(req, res) {
    else {
       return NextResponse.json({ message: "you are not allowed to delete jobs" }, { status: 401 })
    }
+   const { id } = await req.json();
 
 
    try {
       await prisma.job.delete({
          where: {
-            id: jobId
+            id: id,
+            recruiterId: session.id
          }
       })
       return NextResponse.json({ message: "Job Deleted" }, { status: 200 });

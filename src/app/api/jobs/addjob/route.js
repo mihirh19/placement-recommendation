@@ -18,7 +18,12 @@ export async function POST(req, res) {
 
    try {
       const { title, description, company, companyUrl, role, location, salary, skills } = await req.json();
-      await prisma.job.create({
+
+      if (!title || !description || !company || !role || !location || !salary || !skills) {
+         return NextResponse.json({ message: "Please fill all the fields" }, { status: 400 });
+      }
+
+      const user = await prisma.job.create({
          data: {
             title,
             description,
@@ -28,11 +33,7 @@ export async function POST(req, res) {
             location,
             salary,
             skills,
-            User: {
-               connect: {
-                  id: session.id
-               }
-            }
+            recruiterId: session.id,
          }
       })
 

@@ -20,6 +20,7 @@ import Contact from "./Contact.jsx";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import NextImage from "next/image";
+import { Role } from "@prisma/client";
 
 import { toast } from "react-toastify";
 
@@ -53,7 +54,7 @@ export default function App() {
             </Link>
           </NavbarBrand>
 
-          {status === 'authenticated' && data?.role === 'STUDENT' && (
+          {status === 'authenticated' && data?.role === Role.STUDENT && (
             <>
               <NavbarContent className="hidden sm:flex gap-10">
                 <NavbarItem isActive={activeTab === 'Home'}>
@@ -112,7 +113,7 @@ export default function App() {
               </NavbarMenu>
             </>
           )}
-          {status === 'authenticated' && data?.role === 'ADMIN' && (<>
+          {status === 'authenticated' && data?.role === Role.ADMIN && (<>
             <NavbarContent className="hidden sm:flex gap-10">
               <NavbarItem isActive={activeTab === 'Dashboard'}>
                 <Link href="/dashboard" onClick={() => {
@@ -128,13 +129,7 @@ export default function App() {
                   Add Student
                 </Link>
               </NavbarItem>
-              <NavbarItem isActive={activeTab === 'About'}>
-                <Link color="foreground" onClick={() => {
-                  handleClick("About")
-                }} href="/about" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
-                  About
-                </Link>
-              </NavbarItem>
+
             </NavbarContent>
             <NavbarMenu>
               <NavbarMenuItem isActive={activeTab === 'Dashboard'}>
@@ -151,22 +146,40 @@ export default function App() {
                   Add Student
                 </Link>
               </NavbarMenuItem>
-              <NavbarMenuItem isActive={activeTab === 'About'}>
-                <Link color="foreground" onClick={() => {
-                  handleClick("About")
-                }} href="/about" style={{ color: activeTab === "About" ? "#F55734" : "inherit" }}>
-                  About
-                </Link>
-              </NavbarMenuItem>
+
             </NavbarMenu>
           </>
           )}
+          {status === 'authenticated' && data?.role === Role.RECRUITER && (<>
+            <NavbarContent className="hidden sm:flex gap-10">
+              <NavbarItem isActive={activeTab === 'Dashboard'}>
+                <Link href="/dashboard" onClick={() => {
+                  handleClick("Dashboard")
+                }} style={{ color: activeTab === "Dashboard" ? "#F55734" : "inherit" }}>
+                  Dashboard
+                </Link>
+              </NavbarItem>
+
+            </NavbarContent>
+            <NavbarMenu>
+              <NavbarMenuItem isActive={activeTab === 'Dashboard'}>
+                <Link href="/dashboard" onClick={() => {
+                  handleClick("Dashboard")
+                }} style={{ color: activeTab === "Dashboard" ? "#F55734" : "inherit" }}>
+                  Dashboard
+                </Link>
+              </NavbarMenuItem>
+
+            </NavbarMenu>
+          </>
+          )}
+
         </NavbarContent>
         <NavbarContent as="div" className="items-center" justify="end">
           {status === 'unauthenticated' && (
             <>
               <p style={{ color: 'black', fontWeight: 'bold', fontStyle: 'italic', marginBottom: '10px' }}>
-                DHARMSINH DESAI UNIVERSITY - PLACEMENT
+                PLACEMENT CELL
               </p>
               <Button style={{ color: "#F55734" }} variant={'ghost'} onClick={() => router.push('/login')}>
                 Login

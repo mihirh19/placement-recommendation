@@ -5,8 +5,6 @@ import { Role } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
 export async function PUT(req, res) {
-   const jobId = req.query.id;
-
    const session = await getServerSession(authOptions);
 
    if (session) {
@@ -19,11 +17,12 @@ export async function PUT(req, res) {
    }
 
    try {
-      const { title, description, company, companyUrl, role, location, salary, skills } = await req.json();
+      const { id, title, description, company, companyUrl, role, location, salary, skills } = await req.json();
 
       await prisma.job.update({
          where: {
-            id: jobId
+            id: id,
+            recruiterId: session.id
          },
          data: {
             title,
