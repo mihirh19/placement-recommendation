@@ -41,11 +41,10 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 const INITIAL_VISIBLE_COLUMNS = ["name", "studentId", "email", "actions"];
 
 export default function Studenttabl() {
-   const { data, error, isLoading } = useSWR('api/students/getallstudents', fetcher)
+   let { data: users, error, isLoading } = useSWR('api/students/getallstudents', fetcher, { revalidateOnMount: true, revalidateOnFocus: true, refreshInterval: 1000 })
    const router = useRouter();
-   let users = []
-   if (data) {
-      users = data;
+   if (isLoading) {
+      users = [];
    }
    const { isOpen, onOpen, onOpenChange } = useDisclosure();
    const today = dayjs();
@@ -273,7 +272,7 @@ export default function Studenttabl() {
                </div>
             </div>
             <div className="flex justify-between items-center">
-               <span className="text-default-400 text-small">Total {users.length} users</span>
+               <span className="text-default-400 text-small">Total {users.length} Students</span>
                <label className="flex items-center text-default-400 text-small">
                   Rows per page:
                   <select

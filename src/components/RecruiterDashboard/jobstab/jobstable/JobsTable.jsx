@@ -1,6 +1,6 @@
 'use client'
 
-import React from "react";
+import React, { use } from "react";
 import {
    Table,
    TableHeader,
@@ -46,12 +46,14 @@ export default function JobsTable() {
    const session = useSession();
 
 
-   const { data, error, isLoading } = useSWR('api/jobs/getjobsbyrecruiter', fetcher)
+   let { data: users, error, isLoading } = useSWR('api/jobs/getjobsbyrecruiter', fetcher, { revalidateOnMount: true, revalidateOnFocus: true, refreshInterval: 1000 })
    const router = useRouter();
-   let users = []
-   if (data) {
-      users = data;
-   }
+   if (isLoading) {
+      users = []
+   }   // let users = []
+   // if (data) {
+   //    users = data;
+   // }
    const { isOpen, onOpen, onOpenChange } = useDisclosure();
    const { isOpen: isUserInfoOpen, onOpen: onUserInfoOpen, onOpenChange: onUserInfoOpenChange } = useDisclosure();
    const today = dayjs();
@@ -98,7 +100,7 @@ export default function JobsTable() {
       return columns.filter((column) => Array.from(visibleColumns).includes(column.uid));
    }, [visibleColumns]);
 
-   const filteredItems = React.useMemo(() => {
+   let filteredItems = React.useMemo(() => {
       let filteredUsers = [...users];
 
       if (hasSearchFilter) {
@@ -115,7 +117,7 @@ export default function JobsTable() {
       return filteredUsers;
    }, [users, filterValue]);
 
-   const items = React.useMemo(() => {
+   let items = React.useMemo(() => {
       const start = (page - 1) * rowsPerPage;
       const end = start + rowsPerPage;
 
@@ -182,7 +184,6 @@ export default function JobsTable() {
                               })
 
                            })
-
 
                         }}
                            className="text-danger"
@@ -292,7 +293,7 @@ export default function JobsTable() {
                </div>
             </div>
             <div className="flex justify-between items-center">
-               <span className="text-default-400 text-small">Total {users.length} users</span>
+               <span className="text-default-400 text-small">Total {users.length} Jobs</span>
                <label className="flex items-center text-default-400 text-small">
                   Rows per page:
                   <select
@@ -360,8 +361,11 @@ export default function JobsTable() {
       [],
    );
 
+
+
    return (
       <>
+
          <Modal
             backdrop="blur"
             isOpen={isOpen}
@@ -634,8 +638,8 @@ export default function JobsTable() {
                                  theme: "dark",
                               })
                            })
-
                            onClose();
+
                         }}>
                            Submit
                         </Button>

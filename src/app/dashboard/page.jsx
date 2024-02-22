@@ -1,5 +1,6 @@
 'use client'
 
+import DashboardLoading from "@/components/Loading/DashboardLoading";
 // import Dash from "@/components/Dashboard/Dashboard";
 import RecruiterDash from "../../components/RecruiterDashboard/RecruiterDash";
 import Dash from "@/components/AdminDashboard/Dashboard";
@@ -26,9 +27,7 @@ export default function Dashboard() {
    }
    else {
       return (
-         <div>
-            Loading...
-         </div>
+         <DashboardLoading />
       )
    }
 
