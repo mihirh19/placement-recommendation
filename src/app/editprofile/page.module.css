@@ -1,0 +1,23 @@
+.container{
+    display: flex;
+    
+}
+.mycard{
+    width: 60%;
+    margin : 20px;
+}
+.secCard{
+    margin: 20px;
+    height: fit-content;
+}
+.header{
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: large;
+    color:#F55734;
+}
+.btn{
+    color: #F55734;
+    border-color: #F55734;
+}
