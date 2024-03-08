@@ -11,18 +11,47 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  username    String   @unique
-  email       String   @unique
-  name        String   @default("")
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  username    String    @unique
+  email       String    @unique
+  name        String    @default("")
   password    String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  role        Role     @default(STUDENT)
-  studentId   String   @unique
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  role        Role      @default(STUDENT)
+  studentId   String    @unique
   dateofbirth DateTime
   phonenumber String
   Job         Job[]
+  Criteria    Criteria?
+}
+
+model Criteria {
+  id                          String @id @default(auto()) @map("_id") @db.ObjectId
+  cpi                         Float  @default(0)
+  english_level               Int    @default(0)
+  logical_reasoning_level     Int    @default(0)
+  experience_gained           Int    @default(0)
+  extra_curricular_activities Int    @default(0)
+  easy_leetcode_questions     Int    @default(0)
+  medium_leetcode_questions   Int    @default(0)
+  hard_leetcode_questions     Int    @default(0)
+  Angular                     Int    @default(0)
+  CPP                         Int    @default(0)
+  Django                      Int    @default(0)
+  ExpressJS                   Int    @default(0)
+  Flask                       Int    @default(0)
+  Java                        Int    @default(0)
+  JavaScript                  Int    @default(0)
+  Laravel                     Int    @default(0)
+  NodeJS                      Int    @default(0)
+  PHP                         Int    @default(0)
+  Python                      Int    @default(0)
+  React                       Int    @default(0)
+  SpringBoot                  Int    @default(0)
+  VueJS                       Int    @default(0)
+  user                        User   @relation(fields: [userId], references: [id])
+  userId                      String @unique @db.ObjectId
 }
 
 model Job {

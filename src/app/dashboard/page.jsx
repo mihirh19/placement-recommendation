@@ -1,7 +1,7 @@
 'use client'
 
 import DashboardLoading from "@/components/Loading/DashboardLoading";
-// import Dash from "@/components/Dashboard/Dashboard";
+// import Dash from "@/components/Dashboard/Dashboard";  
 import RecruiterDash from "../../components/RecruiterDashboard/RecruiterDash";
 import Dash from "@/components/AdminDashboard/Dashboard";
 import { Role } from "@prisma/client";
@@ -25,11 +25,13 @@ export default function Dashboard() {
          <RecruiterDash />
       )
    }
+   if (status === "authenticated" && data?.role === Role.STUDENT) {
+      router.push("/editprofile");
+   }
    else {
       return (
          <DashboardLoading />
       )
    }
-
 
 }

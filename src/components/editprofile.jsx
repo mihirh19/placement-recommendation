@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, CardBody } from "@nextui-org/react"
 import { Input, Button } from "@nextui-org/react";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -7,6 +7,12 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Today } from '@mui/icons-material';
 import { RadioGroup, Radio } from "@nextui-org/react";
 import styles from "../app/editprofile/page.module.css"
+import useSWR from 'swr'
+import axios from 'axios'
+import { toast } from "react-toastify";
+import MatchedCompanies from './MatchedCompanies';
+const fetcher = (...args) => fetch(...args).then(res => res.json())
+
 
 const tech_known = [
     {
@@ -15,7 +21,7 @@ const tech_known = [
     },
     {
         id: 2,
-        name: 'C++'
+        name: 'CPP'
     },
     {
         id: 3,
@@ -23,7 +29,7 @@ const tech_known = [
     },
     {
         id: 4,
-        name: 'Express.js'
+        name: 'ExpressJS'
     },
     {
         id: 5,
@@ -43,7 +49,7 @@ const tech_known = [
     },
     {
         id: 9,
-        name: 'Node.js'
+        name: 'NodeJS'
     },
     {
         id: 10,
@@ -59,45 +65,32 @@ const tech_known = [
     },
     {
         id: 13,
-        name: 'Spring Boot'
+        name: 'SpringBoot'
     },
     {
         id: 14,
-        name: 'Vue.js'
+        name: 'VueJS'
     }
 ]
 const EditProf = () => {
-    const initialInfo = {
-        'fullName': '',
-        'email': '',
-        'phoneNo': '',
-        'dob': '',
-        'english': '',
-        'logical': '',
-        'experience': '',
-        'extracur': '',
-        'easy': '',
-        'medium': '',
-        'hard': '',
-        'angular': '',
-        'c++': '',
-        'django': '',
-        'express.js': '',
-        'flask': '',
-        'java': '',
-        'javascript': '',
-        'laravel': '',
-        'node.js': '',
-        'php': '',
-        'python': '',
-        'react': '',
-        'spring boot': '',
-        'vue.js': ''
-    }
-    const [info, setInfo] = useState(initialInfo)
-    const [conpany, setCompany] = useState('')
+    const [info, setInfo] = useState({
 
-    function handleChange(name, value) {
+    })
+    useEffect(() => {
+        async function fetchData() {
+            await fetch('api/criteria/getcriteria').then((res) => {
+                return res.json()
+            }).then((data) => {
+                setInfo(data[0])
+            })
+        }
+        fetchData()
+    }, [])
+
+    const [company, setCompany] = useState('')
+
+    function handleChange(e) {
+        const { name, value } = e.target;
         setInfo((prevInfo) => ({
             ...prevInfo,
             [name]: value,
@@ -109,13 +102,38 @@ const EditProf = () => {
             [name]: value,
         }));
     }
-    function handleSave(e) {
-        e.preventDefault();
-        console.log(info)
-        fetch('http://127.0.0.1:8080/predict', {
+
+    async function handlePredict(e) {
+        let newInfo = {
+            cpi: info.cpi,
+            english_level: info.english_level,
+            logical_reasoning_level: info.logical_reasoning_level,
+            experience_gained: info.experience_gained,
+            extra_curricular_activities: info.extra_curricular_activities,
+            easy_leetcode_questions: info.easy_leetcode_questions,
+            medium_leetcode_questions: info.medium_leetcode_questions,
+            hard_leetcode_questions: info.hard_leetcode_questions,
+            Angular: info.Angular,
+            "C++": info.CPP,
+            Django: info.Django,
+            "Express.js": info.ExpressJS,
+            Flask: info.Flask,
+            Java: info.Java,
+            JavaScript: info.JavaScript,
+            Laravel: info.Laravel,
+            "Node.js": info.NodeJS,
+            PHP: info.PHP,
+            Python: info.Python,
+            React: info.React,
+            "Spring Boot": info.SpringBoot,
+            "Vue.js": info.VueJS
+
+        }
+
+        await fetch('https://placement-recommendation-flask.onrender.com/predict', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(info)
+            body: JSON.stringify(newInfo)
         })
             .then(response => response.json())
             .then(data => {
@@ -123,12 +141,43 @@ const EditProf = () => {
             })
             .catch(error => console.error('Error:', error));
     }
+
+    async function handleSave(e) {
+        e.preventDefault();
+        await axios.put("api/criteria/editCriteria", info).then((res) => {
+            toast.success("saved  Successfully", {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            })
+            return res;
+        }).catch((err) => {
+            toast.info("Something went wrong", {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            })
+        });
+
+        // console.log(info)
+
+    }
     return (
         <div className={styles.container}>
             <Card className={styles.mycard}>
                 <CardBody>
                     <p className={styles.header}>Edit your details</p><br />
-                    <p>Student ID</p>
+                    {/* <p>Student ID</p>
                     <Input
                         isDisabled
                         type="text"
@@ -173,13 +222,22 @@ const EditProf = () => {
                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                         />
                     </LocalizationProvider><br />
-                    <hr />
+                    <hr /> */}
                     <p>CPI</p>
                     <Input
-                        type="float"
+                        type="number"
                         label="CPI"
+                        inputMode='decimal'
                         name='cpi'
-                        onChange={handleChange}
+                        value={info.cpi}
+
+                        id='cpi'
+                        onChange={(e) => {
+                            setInfo((prevInfo) => ({
+                                ...prevInfo,
+                                cpi: parseFloat(e.target.value),
+                            }));
+                        }}
                         className="max-w-full"
                     /><br />
                     <hr />
@@ -187,101 +245,106 @@ const EditProf = () => {
                     <RadioGroup
                         label="0-0% | 1-100%"
                         orientation="horizontal"
-                        value={info.english}
-                        onChange={(e) => handleRadioChange('english', e.target.value)}
+                        id='english_level'
+                        name='english_level'
+                        value={info.english_level}
+                        onValueChange={(e) => handleRadioChange('english_level', parseInt(e))}
                     >
-                        <Radio value="0">0</Radio>
-                        <Radio value="1">1</Radio>
-                        <Radio value="2">2</Radio>
-                        <Radio value="3">3</Radio>
-                        <Radio value="4">4</Radio>
-                        <Radio value="5">5</Radio>
+                        <Radio value={0} >0</Radio>
+                        <Radio value={1}  >1</Radio>
+                        <Radio value={2} >2</Radio>
+                        <Radio value={3} >3</Radio>
+                        <Radio value={4} >4</Radio>
+                        <Radio value={5} >5</Radio>
                     </RadioGroup><br />
                     <hr />
                     <p>Logical Reasoning</p>
                     <RadioGroup
                         label="0-0% | 1-100%"
                         orientation="horizontal"
-                        value={info.logical}
-                        onChange={(e) => handleRadioChange('logical', e.target.value)}
+                        name="logical_reasoning_level"
+                        value={info.logical_reasoning_level}
+                        onValueChange={(e) => handleRadioChange('logical_reasoning_level', parseInt(e))}
                     >
-                        <Radio value="0">0</Radio>
-                        <Radio value="1">1</Radio>
-                        <Radio value="2">2</Radio>
-                        <Radio value="3">3</Radio>
-                        <Radio value="4">4</Radio>
-                        <Radio value="5">5</Radio>
+                        <Radio value={0} >0</Radio>
+                        <Radio value={1} >1</Radio>
+                        <Radio value={2} >2</Radio>
+                        <Radio value={3} >3</Radio>
+                        <Radio value={4} >4</Radio>
+                        <Radio value={5} >5</Radio>
                     </RadioGroup><br />
                     <hr />
                     <p>Experience Gained</p>
                     <RadioGroup
                         label="0-Yes | 1-No"
                         orientation="horizontal"
-                        value={info.experience}
-                        onChange={(e) => handleRadioChange('experience', e.target.value)}
+                        name='experience_gained'
+                        value={info.experience_gained}
+                        onValueChange={(e) => handleRadioChange('experience_gained', parseInt(e))}
                     >
-                        <Radio value="0">0</Radio>
-                        <Radio value="1">1</Radio>
+                        <Radio value={0} >0</Radio>
+                        <Radio value={1}>1</Radio>
                     </RadioGroup><br />
                     <hr />
                     <p>Involvement in Extra Curricular Activities</p>
                     <RadioGroup
                         label="0-0% | 1-100%"
                         orientation="horizontal"
-                        value={info.extracur}
-                        onChange={(e) => handleRadioChange('extracur', e.target.value)}
+                        name="extra_curricular_activities"
+                        value={info.extra_curricular_activities}
+                        onValueChange={(e) => handleRadioChange('extra_curricular_activities', parseInt(e))}
                     >
-                        <Radio value="0">0</Radio>
-                        <Radio value="1">1</Radio>
-                        <Radio value="2">2</Radio>
-                        <Radio value="3">3</Radio>
-                        <Radio value="4">4</Radio>
-                        <Radio value="5">5</Radio>
+                        <Radio value={0} >0</Radio>
+                        <Radio value={1} >1</Radio>
+                        <Radio value={2} >2</Radio>
+                        <Radio value={3} >3</Radio>
+                        <Radio value={4} >4</Radio>
+                        <Radio value={5} >5</Radio>
                     </RadioGroup><br />
                     <hr />
                     <p>Leetcode Questions Solved Of Easy Level</p>
                     <RadioGroup
                         label="0-0% | 1-100%"
                         orientation="horizontal"
-                        value={info.easy}
-                        onChange={(e) => handleRadioChange('easy', e.target.value)}
+                        value={info.easy_leetcode_questions}
+                        onValueChange={(e) => handleRadioChange('easy_leetcode_questions', parseInt(e))}
                     >
-                        <Radio value="0">0</Radio>
-                        <Radio value="1">1</Radio>
-                        <Radio value="2">2</Radio>
-                        <Radio value="3">3</Radio>
-                        <Radio value="4">4</Radio>
-                        <Radio value="5">5</Radio>
+                        <Radio value={0} >0</Radio>
+                        <Radio value={1} >1</Radio>
+                        <Radio value={2} >2</Radio>
+                        <Radio value={3} >3</Radio>
+                        <Radio value={4} >4</Radio>
+                        <Radio value={5} >5</Radio>
                     </RadioGroup><br />
                     <hr />
                     <p>Leetcode Questions Solved Of Medium Level</p>
                     <RadioGroup
                         label="0-0% | 1-100%"
                         orientation="horizontal"
-                        value={info.medium}
-                        onChange={(e) => handleRadioChange('medium', e.target.value)}
+                        value={info.medium_leetcode_questions}
+                        onValueChange={(e) => handleRadioChange('medium_leetcode_questions', parseInt(e))}
                     >
-                        <Radio value="0">0</Radio>
-                        <Radio value="1">1</Radio>
-                        <Radio value="2">2</Radio>
-                        <Radio value="3">3</Radio>
-                        <Radio value="4">4</Radio>
-                        <Radio value="5">5</Radio>
+                        <Radio value={0}>0</Radio>
+                        <Radio value={1}>1</Radio>
+                        <Radio value={2}>2</Radio>
+                        <Radio value={3}>3</Radio>
+                        <Radio value={4}>4</Radio>
+                        <Radio value={5}>5</Radio>
                     </RadioGroup><br />
                     <hr />
                     <p>Leetcode Questions Solved Of Hard Level</p>
                     <RadioGroup
                         label="0-0% | 1-100%"
                         orientation="horizontal"
-                        value={info.hard}
-                        onChange={(e) => handleRadioChange('hard', e.target.value)}
+                        value={info.hard_leetcode_questions}
+                        onValueChange={(e) => handleRadioChange('hard_leetcode_questions', parseInt(e))}
                     >
-                        <Radio value="0">0</Radio>
-                        <Radio value="1">1</Radio>
-                        <Radio value="2">2</Radio>
-                        <Radio value="3">3</Radio>
-                        <Radio value="4">4</Radio>
-                        <Radio value="5">5</Radio>
+                        <Radio value={0}>0</Radio>
+                        <Radio value={1}>1</Radio>
+                        <Radio value={2}>2</Radio>
+                        <Radio value={3}>3</Radio>
+                        <Radio value={4}>4</Radio>
+                        <Radio value={5}>5</Radio>
                     </RadioGroup><br />
                     <hr />
                     <div>
@@ -291,11 +354,11 @@ const EditProf = () => {
                                 key={index}
                                 label={tech.name}
                                 orientation="horizontal"
-                                value={info[tech.name.toLowerCase()]}
-                                onChange={(e) => handleRadioChange(tech.name.toLowerCase(), e.target.value)}
+                                value={info[tech.name]}
+                                onValueChange={(e) => handleRadioChange(tech.name, parseInt(e))}
                             >
-                                <Radio value="0">0</Radio>
-                                <Radio value="1">1</Radio>
+                                <Radio value={0}>0</Radio>
+                                <Radio value={1}>1</Radio>
                             </RadioGroup>
                         ))}
                     </div>
@@ -305,21 +368,31 @@ const EditProf = () => {
                     </Button>
                 </CardBody>
             </Card>
-            <Card className={styles.secCard}>
-                <CardBody>
-                    Predict the company in which you are likely to get placed
-                    <Input
-                        isDisabled
-                        type="text"
-                        label="Predicted Company"
-                        defaultValue={conpany}
-                        className="max-w-full"
-                    />
-                    <Button className={styles.btn} variant="ghost">
-                        Predict
-                    </Button>
-                </CardBody>
-            </Card>
+            <div className={styles.rightContainer}>
+                <Card className={styles.secCard}>
+                    <CardBody>
+                        Predict the company in which you are likely to get placed
+                        <Input
+                            isDisabled
+                            type="text"
+                            label="Predicted Company"
+                            defaultValue={company}
+                            value={company}
+                            className="max-w-full"
+                        />
+                        <Button className={styles.btn} variant="ghost">
+                            Predict
+                        </Button>
+                    </CardBody>
+                </Card>
+                <Card className={styles.matchedCard}>
+                    <CardBody>
+                        Matched companies
+                        <MatchedCompanies info={info} />
+                    </CardBody>
+                </Card>
+            </div>
+
         </div>
     )
 }
