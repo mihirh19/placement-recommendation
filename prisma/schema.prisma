@@ -52,10 +52,11 @@ model Criteria {
   VueJS                       Int    @default(0)
   user                        User   @relation(fields: [userId], references: [id])
   userId                      String @unique @db.ObjectId
+  Job                         Job?
 }
 
 model Job {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   description String
   company     String
@@ -64,10 +65,12 @@ model Job {
   location    String
   salary      String
   skills      String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  recruiter   User     @relation(fields: [recruiterId], references: [id])
-  recruiterId String   @db.ObjectId
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  recruiter   User      @relation(fields: [recruiterId], references: [id])
+  recruiterId String    @db.ObjectId
+  Criteria    Criteria? @relation(fields: [criteriaId], references: [id])
+  criteriaId  String?   @unique @db.ObjectId
 }
 
 enum Role {

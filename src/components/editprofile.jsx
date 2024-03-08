@@ -15,7 +15,7 @@ import DashboardLoading from './Loading/DashboardLoading';
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 
-const tech_known = [
+export const tech_known = [
     {
         id: 1,
         name: 'Angular'

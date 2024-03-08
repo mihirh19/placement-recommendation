@@ -20,26 +20,22 @@ const columns = [
 // ];
 
 export const skills = [
-   { name: "Python", uid: "python" },
-   { name: "C++", uid: "cpp" },
+   { name: "Angular", uid: "angular" },
+   { name: "CPP", uid: "cpp" },
+   { name: "Django", uid: "django" },
+   { name: "ExpressJS", uid: "expressjs" },
+   { name: "Flask", uid: "flask" },
    { name: "Java", uid: "java" },
+   { name: "JavaScript", uid: "javascript" },
+   { name: "Laravel", uid: "laravel" },
+   { name: "NodeJS", uid: "nodejs" },
+   { name: "PHP", uid: "php" },
+   { name: "Python", uid: "python" },
    { name: "React", uid: "react" },
-   { name: "Node.js", uid: "nodejs" },
-   { name: "Spring", uid: "spring" },
+   { name: "SpringBoot", uid: "springboot" },
    { name: "HTML", uid: "html" },
    { name: "CSS", uid: "css" },
-   { name: "JavaScript", uid: "javascript" },
-   { name: "Angular", uid: "angular" },
-   { name: "Vue.js", uid: "vuejs" },
-   { name: "PHP", uid: "php" },
-   { name: "Ruby", uid: "ruby" },
-   { name: "Swift", uid: "swift" },
-   { name: "Go", uid: "go" },
-   { name: "Rust", uid: "rust" },
-   { name: "TypeScript", uid: "typescript" },
-   { name: "Django", uid: "django" },
-   { name: "Express.js", uid: "expressjs" },
-   { name: "Laravel", uid: "laravel" }
+   { name: "VueJS", uid: "vuejs" },
 ]
 
 const users = [

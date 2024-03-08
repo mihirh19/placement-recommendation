@@ -17,7 +17,8 @@ import {
    Chip,
    User,
    Pagination,
-   Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Checkbox, Link, Autocomplete, AutocompleteItem, Select, SelectItem
+   Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Checkbox, Link, Autocomplete, AutocompleteItem, Select, SelectItem,
+   RadioGroup, Radio,
 } from "@nextui-org/react";
 import { PlusIcon } from "./PlusIcon";
 import { VerticalDotsIcon } from "./VerticalDotsIcon";
@@ -66,6 +67,14 @@ export default function JobsTable() {
       location: "",
       skills: new Set([]),
       salary: "",
+      cpi: 0.0,
+      english_level: 0,
+      logical_reasoning_level: 0,
+      experience_gained: 0,
+      extra_curricular_activities: 0,
+      easy_leetcode_questions: 0,
+      medium_leetcode_questions: 0,
+      hard_leetcode_questions: 0,
    })
    const [jobEdit, setJobEdit] = React.useState({
       id: "",
@@ -371,6 +380,8 @@ export default function JobsTable() {
             isOpen={isOpen}
             onOpenChange={onOpenChange}
             placement="top-center"
+            scrollBehavior="inside"
+            size="md"
          >
             <ModalContent>
                {(onClose) => (
@@ -445,6 +456,110 @@ export default function JobsTable() {
                               </SelectItem>
                            ))}
                         </Select>
+                        <Input
+                           isRequired
+                           name="cpi"
+                           label="CPI"
+                           type="number"
+                           inputMode="decimal"
+                           value={jobInfo.cpi}
+                           onChange={(e) => setJobInfo({ ...jobInfo, cpi: parseFloat(e.target.value) })}
+                           variant="bordered"
+                        />
+
+                        <RadioGroup
+                           label="English Level"
+                           orientation="horizontal"
+                           id='english_level'
+                           name='english_level'
+                           value={jobInfo.english_level}
+
+                           onValueChange={(e) => setJobInfo({ ...jobInfo, english_level: parseInt(e) })}
+                        >
+                           <Radio value={0} >0</Radio>
+                           <Radio value={1}  >1</Radio>
+                           <Radio value={2} >2</Radio>
+                           <Radio value={3} >3</Radio>
+                           <Radio value={4} >4</Radio>
+                           <Radio value={5} >5</Radio>
+                        </RadioGroup><br />
+                        <RadioGroup
+                           label="Logical Reasoning"
+                           orientation="horizontal"
+                           name="logical_reasoning_level"
+                           value={jobInfo.logical_reasoning_level}
+                           onValueChange={(e) => setJobInfo({ ...jobInfo, logical_reasoning_level: parseInt(e) })}
+                        >
+                           <Radio value={0} >0</Radio>
+                           <Radio value={1} >1</Radio>
+                           <Radio value={2} >2</Radio>
+                           <Radio value={3} >3</Radio>
+                           <Radio value={4} >4</Radio>
+                           <Radio value={5} >5</Radio>
+                        </RadioGroup><br />
+                        <RadioGroup
+                           label="Experience Gained 0-Yes | 1-No"
+                           orientation="horizontal"
+                           name='experience_gained'
+                           value={jobInfo.experience_gained}
+                           onValueChange={(e) => setJobInfo({ ...jobInfo, experience_gained: parseInt(e) })}
+                        >
+                           <Radio value={0} >0</Radio>
+                           <Radio value={1}>1</Radio>
+                        </RadioGroup><br />
+                        <RadioGroup
+                           label="Involvement in Extra Curricular Activities"
+                           orientation="horizontal"
+                           name="extra_curricular_activities"
+                           value={jobInfo.extra_curricular_activities}
+                           onValueChange={(e) => setJobInfo({ ...jobInfo, extra_curricular_activities: parseInt(e) })}
+                        >
+                           <Radio value={0} >0</Radio>
+                           <Radio value={1} >1</Radio>
+                           <Radio value={2} >2</Radio>
+                           <Radio value={3} >3</Radio>
+                           <Radio value={4} >4</Radio>
+                           <Radio value={5} >5</Radio>
+                        </RadioGroup><br />
+                        <RadioGroup
+                           label="Leetcode Questions Solved Of Easy Level"
+                           orientation="horizontal"
+                           value={jobInfo.easy_leetcode_questions}
+                           onValueChange={(e) => setJobInfo({ ...jobInfo, easy_leetcode_questions: parseInt(e) })}
+                        >
+                           <Radio value={0} >0</Radio>
+                           <Radio value={1} >1</Radio>
+                           <Radio value={2} >2</Radio>
+                           <Radio value={3} >3</Radio>
+                           <Radio value={4} >4</Radio>
+                           <Radio value={5} >5</Radio>
+                        </RadioGroup><br />
+                        <RadioGroup
+                           label="Leetcode Questions Solved Of Medium Level"
+                           orientation="horizontal"
+                           value={jobInfo.medium_leetcode_questions}
+                           onValueChange={(e) => setJobInfo({ ...jobInfo, medium_leetcode_questions: parseInt(e) })}
+                        >
+                           <Radio value={0}>0</Radio>
+                           <Radio value={1}>1</Radio>
+                           <Radio value={2}>2</Radio>
+                           <Radio value={3}>3</Radio>
+                           <Radio value={4}>4</Radio>
+                           <Radio value={5}>5</Radio>
+                        </RadioGroup><br />
+                        <RadioGroup
+                           label="Leetcode Questions Solved Of Hard Level"
+                           orientation="horizontal"
+                           value={jobInfo.hard_leetcode_questions}
+                           onValueChange={(e) => setJobInfo({ ...jobInfo, hard_leetcode_questions: parseInt(e) })}
+                        >
+                           <Radio value={0}>0</Radio>
+                           <Radio value={1}>1</Radio>
+                           <Radio value={2}>2</Radio>
+                           <Radio value={3}>3</Radio>
+                           <Radio value={4}>4</Radio>
+                           <Radio value={5}>5</Radio>
+                        </RadioGroup><br />
                      </ModalBody>
                      <ModalFooter>
                         <Button color="danger" variant="flat" onClick={(e) => {
@@ -510,7 +625,7 @@ export default function JobsTable() {
                   </>
                )}
             </ModalContent>
-         </Modal>
+         </Modal >
 
 
 
@@ -519,7 +634,7 @@ export default function JobsTable() {
 
 
 
-         <Modal
+         < Modal
             backdrop="blur"
             isOpen={isUserInfoOpen}
             onOpenChange={onUserInfoOpenChange}
@@ -647,7 +762,7 @@ export default function JobsTable() {
                   </>
                )}
             </ModalContent>
-         </Modal>
+         </Modal >
 
 
 
