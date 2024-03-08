@@ -106,10 +106,9 @@ const EditProf = () => {
                         SpringBoot: 0,
                         VueJS: 0
                     })
+                } else {
+                    setInfo(data[0])
                 }
-
-
-                setInfo(data[0])
             })
         }
         fetchData()
