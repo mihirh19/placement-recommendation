@@ -81,6 +81,34 @@ const EditProf = () => {
             await fetch('api/criteria/getcriteria').then((res) => {
                 return res.json()
             }).then((data) => {
+                if (data.length === 0) {
+                    setInfo({
+                        cpi: 0,
+                        english_level: 0,
+                        logical_reasoning_level: 0,
+                        experience_gained: 0,
+                        extra_curricular_activities: 0,
+                        easy_leetcode_questions: 0,
+                        medium_leetcode_questions: 0,
+                        hard_leetcode_questions: 0,
+                        Angular: 0,
+                        CPP: 0,
+                        Django: 0,
+                        ExpressJS: 0,
+                        Flask: 0,
+                        Java: 0,
+                        JavaScript: 0,
+                        Laravel: 0,
+                        NodeJS: 0,
+                        PHP: 0,
+                        Python: 0,
+                        React: 0,
+                        SpringBoot: 0,
+                        VueJS: 0
+                    })
+                }
+
+
                 setInfo(data[0])
             })
         }
