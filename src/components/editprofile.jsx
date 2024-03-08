@@ -11,6 +11,7 @@ import useSWR from 'swr'
 import axios from 'axios'
 import { toast } from "react-toastify";
 import MatchedCompanies from './MatchedCompanies';
+import DashboardLoading from './Loading/DashboardLoading';
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 
@@ -76,8 +77,10 @@ const EditProf = () => {
     const [info, setInfo] = useState({
 
     })
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
         async function fetchData() {
+            setLoading(true)
             await fetch('api/criteria/getcriteria').then((res) => {
                 return res.json()
             }).then((data) => {
@@ -106,8 +109,10 @@ const EditProf = () => {
                         SpringBoot: 0,
                         VueJS: 0
                     })
+                    setLoading(false)
                 } else {
                     setInfo(data[0])
+                    setLoading(false)
                 }
             })
         }
@@ -199,12 +204,25 @@ const EditProf = () => {
         // console.log(info)
 
     }
-    return (
-        <div className={styles.container}>
-            <Card className={styles.mycard}>
-                <CardBody>
-                    <p className={styles.header}>Edit your details</p><br />
-                    {/* <p>Student ID</p>
+
+    if (loading) {
+        return (
+            <DashboardLoading />
+        )
+    }
+    else {
+
+
+
+
+
+
+        return (
+            <div className={styles.container}>
+                <Card className={styles.mycard}>
+                    <CardBody>
+                        <p className={styles.header}>Edit your details</p><br />
+                        {/* <p>Student ID</p>
                     <Input
                         isDisabled
                         type="text"
@@ -250,178 +268,179 @@ const EditProf = () => {
                         />
                     </LocalizationProvider><br />
                     <hr /> */}
-                    <p>CPI</p>
-                    <Input
-                        type="number"
-                        label="CPI"
-                        inputMode='decimal'
-                        name='cpi'
-                        value={info.cpi}
-
-                        id='cpi'
-                        onChange={(e) => {
-                            setInfo((prevInfo) => ({
-                                ...prevInfo,
-                                cpi: parseFloat(e.target.value),
-                            }));
-                        }}
-                        className="max-w-full"
-                    /><br />
-                    <hr />
-                    <p>English level</p>
-                    <RadioGroup
-                        label="0-0% | 1-100%"
-                        orientation="horizontal"
-                        id='english_level'
-                        name='english_level'
-                        value={info.english_level}
-                        onValueChange={(e) => handleRadioChange('english_level', parseInt(e))}
-                    >
-                        <Radio value={0} >0</Radio>
-                        <Radio value={1}  >1</Radio>
-                        <Radio value={2} >2</Radio>
-                        <Radio value={3} >3</Radio>
-                        <Radio value={4} >4</Radio>
-                        <Radio value={5} >5</Radio>
-                    </RadioGroup><br />
-                    <hr />
-                    <p>Logical Reasoning</p>
-                    <RadioGroup
-                        label="0-0% | 1-100%"
-                        orientation="horizontal"
-                        name="logical_reasoning_level"
-                        value={info.logical_reasoning_level}
-                        onValueChange={(e) => handleRadioChange('logical_reasoning_level', parseInt(e))}
-                    >
-                        <Radio value={0} >0</Radio>
-                        <Radio value={1} >1</Radio>
-                        <Radio value={2} >2</Radio>
-                        <Radio value={3} >3</Radio>
-                        <Radio value={4} >4</Radio>
-                        <Radio value={5} >5</Radio>
-                    </RadioGroup><br />
-                    <hr />
-                    <p>Experience Gained</p>
-                    <RadioGroup
-                        label="0-Yes | 1-No"
-                        orientation="horizontal"
-                        name='experience_gained'
-                        value={info.experience_gained}
-                        onValueChange={(e) => handleRadioChange('experience_gained', parseInt(e))}
-                    >
-                        <Radio value={0} >0</Radio>
-                        <Radio value={1}>1</Radio>
-                    </RadioGroup><br />
-                    <hr />
-                    <p>Involvement in Extra Curricular Activities</p>
-                    <RadioGroup
-                        label="0-0% | 1-100%"
-                        orientation="horizontal"
-                        name="extra_curricular_activities"
-                        value={info.extra_curricular_activities}
-                        onValueChange={(e) => handleRadioChange('extra_curricular_activities', parseInt(e))}
-                    >
-                        <Radio value={0} >0</Radio>
-                        <Radio value={1} >1</Radio>
-                        <Radio value={2} >2</Radio>
-                        <Radio value={3} >3</Radio>
-                        <Radio value={4} >4</Radio>
-                        <Radio value={5} >5</Radio>
-                    </RadioGroup><br />
-                    <hr />
-                    <p>Leetcode Questions Solved Of Easy Level</p>
-                    <RadioGroup
-                        label="0-0% | 1-100%"
-                        orientation="horizontal"
-                        value={info.easy_leetcode_questions}
-                        onValueChange={(e) => handleRadioChange('easy_leetcode_questions', parseInt(e))}
-                    >
-                        <Radio value={0} >0</Radio>
-                        <Radio value={1} >1</Radio>
-                        <Radio value={2} >2</Radio>
-                        <Radio value={3} >3</Radio>
-                        <Radio value={4} >4</Radio>
-                        <Radio value={5} >5</Radio>
-                    </RadioGroup><br />
-                    <hr />
-                    <p>Leetcode Questions Solved Of Medium Level</p>
-                    <RadioGroup
-                        label="0-0% | 1-100%"
-                        orientation="horizontal"
-                        value={info.medium_leetcode_questions}
-                        onValueChange={(e) => handleRadioChange('medium_leetcode_questions', parseInt(e))}
-                    >
-                        <Radio value={0}>0</Radio>
-                        <Radio value={1}>1</Radio>
-                        <Radio value={2}>2</Radio>
-                        <Radio value={3}>3</Radio>
-                        <Radio value={4}>4</Radio>
-                        <Radio value={5}>5</Radio>
-                    </RadioGroup><br />
-                    <hr />
-                    <p>Leetcode Questions Solved Of Hard Level</p>
-                    <RadioGroup
-                        label="0-0% | 1-100%"
-                        orientation="horizontal"
-                        value={info.hard_leetcode_questions}
-                        onValueChange={(e) => handleRadioChange('hard_leetcode_questions', parseInt(e))}
-                    >
-                        <Radio value={0}>0</Radio>
-                        <Radio value={1}>1</Radio>
-                        <Radio value={2}>2</Radio>
-                        <Radio value={3}>3</Radio>
-                        <Radio value={4}>4</Radio>
-                        <Radio value={5}>5</Radio>
-                    </RadioGroup><br />
-                    <hr />
-                    <div>
-                        <p>Technologies Known</p>
-                        {tech_known.map((tech, index) => (
-                            <RadioGroup
-                                key={index}
-                                label={tech.name}
-                                orientation="horizontal"
-                                value={info[tech.name]}
-                                onValueChange={(e) => handleRadioChange(tech.name, parseInt(e))}
-                            >
-                                <Radio value={0}>0</Radio>
-                                <Radio value={1}>1</Radio>
-                            </RadioGroup>
-                        ))}
-                    </div>
-                    <br />
-                    <Button className={styles.btn} variant="ghost" onClick={handleSave}>
-                        Save
-                    </Button>
-                </CardBody>
-            </Card>
-            <div className={styles.rightContainer}>
-                <Card className={styles.secCard}>
-                    <CardBody>
-                        Predict the company in which you are likely to get placed
+                        <p>CPI</p>
                         <Input
-                            isDisabled
-                            type="text"
-                            label="Predicted Company"
-                            defaultValue={company}
-                            value={company}
+                            type="number"
+                            label="CPI"
+                            inputMode='decimal'
+                            name='cpi'
+                            value={info.cpi}
+
+                            id='cpi'
+                            onChange={(e) => {
+                                setInfo((prevInfo) => ({
+                                    ...prevInfo,
+                                    cpi: parseFloat(e.target.value),
+                                }));
+                            }}
                             className="max-w-full"
-                        />
-                        <Button className={styles.btn} variant="ghost" onClick={handlePredict}>
-                            Predict
+                        /><br />
+                        <hr />
+                        <p>English level</p>
+                        <RadioGroup
+                            label="0-0% | 1-100%"
+                            orientation="horizontal"
+                            id='english_level'
+                            name='english_level'
+                            value={info.english_level}
+                            onValueChange={(e) => handleRadioChange('english_level', parseInt(e))}
+                        >
+                            <Radio value={0} >0</Radio>
+                            <Radio value={1}  >1</Radio>
+                            <Radio value={2} >2</Radio>
+                            <Radio value={3} >3</Radio>
+                            <Radio value={4} >4</Radio>
+                            <Radio value={5} >5</Radio>
+                        </RadioGroup><br />
+                        <hr />
+                        <p>Logical Reasoning</p>
+                        <RadioGroup
+                            label="0-0% | 1-100%"
+                            orientation="horizontal"
+                            name="logical_reasoning_level"
+                            value={info.logical_reasoning_level}
+                            onValueChange={(e) => handleRadioChange('logical_reasoning_level', parseInt(e))}
+                        >
+                            <Radio value={0} >0</Radio>
+                            <Radio value={1} >1</Radio>
+                            <Radio value={2} >2</Radio>
+                            <Radio value={3} >3</Radio>
+                            <Radio value={4} >4</Radio>
+                            <Radio value={5} >5</Radio>
+                        </RadioGroup><br />
+                        <hr />
+                        <p>Experience Gained</p>
+                        <RadioGroup
+                            label="0-Yes | 1-No"
+                            orientation="horizontal"
+                            name='experience_gained'
+                            value={info.experience_gained}
+                            onValueChange={(e) => handleRadioChange('experience_gained', parseInt(e))}
+                        >
+                            <Radio value={0} >0</Radio>
+                            <Radio value={1}>1</Radio>
+                        </RadioGroup><br />
+                        <hr />
+                        <p>Involvement in Extra Curricular Activities</p>
+                        <RadioGroup
+                            label="0-0% | 1-100%"
+                            orientation="horizontal"
+                            name="extra_curricular_activities"
+                            value={info.extra_curricular_activities}
+                            onValueChange={(e) => handleRadioChange('extra_curricular_activities', parseInt(e))}
+                        >
+                            <Radio value={0} >0</Radio>
+                            <Radio value={1} >1</Radio>
+                            <Radio value={2} >2</Radio>
+                            <Radio value={3} >3</Radio>
+                            <Radio value={4} >4</Radio>
+                            <Radio value={5} >5</Radio>
+                        </RadioGroup><br />
+                        <hr />
+                        <p>Leetcode Questions Solved Of Easy Level</p>
+                        <RadioGroup
+                            label="0-0% | 1-100%"
+                            orientation="horizontal"
+                            value={info.easy_leetcode_questions}
+                            onValueChange={(e) => handleRadioChange('easy_leetcode_questions', parseInt(e))}
+                        >
+                            <Radio value={0} >0</Radio>
+                            <Radio value={1} >1</Radio>
+                            <Radio value={2} >2</Radio>
+                            <Radio value={3} >3</Radio>
+                            <Radio value={4} >4</Radio>
+                            <Radio value={5} >5</Radio>
+                        </RadioGroup><br />
+                        <hr />
+                        <p>Leetcode Questions Solved Of Medium Level</p>
+                        <RadioGroup
+                            label="0-0% | 1-100%"
+                            orientation="horizontal"
+                            value={info.medium_leetcode_questions}
+                            onValueChange={(e) => handleRadioChange('medium_leetcode_questions', parseInt(e))}
+                        >
+                            <Radio value={0}>0</Radio>
+                            <Radio value={1}>1</Radio>
+                            <Radio value={2}>2</Radio>
+                            <Radio value={3}>3</Radio>
+                            <Radio value={4}>4</Radio>
+                            <Radio value={5}>5</Radio>
+                        </RadioGroup><br />
+                        <hr />
+                        <p>Leetcode Questions Solved Of Hard Level</p>
+                        <RadioGroup
+                            label="0-0% | 1-100%"
+                            orientation="horizontal"
+                            value={info.hard_leetcode_questions}
+                            onValueChange={(e) => handleRadioChange('hard_leetcode_questions', parseInt(e))}
+                        >
+                            <Radio value={0}>0</Radio>
+                            <Radio value={1}>1</Radio>
+                            <Radio value={2}>2</Radio>
+                            <Radio value={3}>3</Radio>
+                            <Radio value={4}>4</Radio>
+                            <Radio value={5}>5</Radio>
+                        </RadioGroup><br />
+                        <hr />
+                        <div>
+                            <p>Technologies Known</p>
+                            {tech_known.map((tech, index) => (
+                                <RadioGroup
+                                    key={index}
+                                    label={tech.name}
+                                    orientation="horizontal"
+                                    value={info[tech.name]}
+                                    onValueChange={(e) => handleRadioChange(tech.name, parseInt(e))}
+                                >
+                                    <Radio value={0}>0</Radio>
+                                    <Radio value={1}>1</Radio>
+                                </RadioGroup>
+                            ))}
+                        </div>
+                        <br />
+                        <Button className={styles.btn} variant="ghost" onClick={handleSave}>
+                            Save
                         </Button>
                     </CardBody>
                 </Card>
-                <Card className={styles.matchedCard}>
-                    <CardBody>
-                        Matched companies
-                        <MatchedCompanies info={info} />
-                    </CardBody>
-                </Card>
-            </div>
+                <div className={styles.rightContainer}>
+                    <Card className={styles.secCard}>
+                        <CardBody>
+                            Predict the company in which you are likely to get placed
+                            <Input
+                                isDisabled
+                                type="text"
+                                label="Predicted Company"
+                                defaultValue={company}
+                                value={company}
+                                className="max-w-full"
+                            />
+                            <Button className={styles.btn} variant="ghost" onClick={handlePredict}>
+                                Predict
+                            </Button>
+                        </CardBody>
+                    </Card>
+                    <Card className={styles.matchedCard}>
+                        <CardBody>
+                            Matched companies
+                            <MatchedCompanies info={info} />
+                        </CardBody>
+                    </Card>
+                </div>
 
-        </div>
-    )
+            </div>
+        )
+    }
 }
 
 export default EditProf
