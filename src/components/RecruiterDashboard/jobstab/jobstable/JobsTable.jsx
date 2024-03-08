@@ -86,6 +86,14 @@ export default function JobsTable() {
       location: "",
       skills: new Set([]),
       salary: "",
+      cpi: 0.0,
+      english_level: 0,
+      logical_reasoning_level: 0,
+      experience_gained: 0,
+      extra_curricular_activities: 0,
+      easy_leetcode_questions: 0,
+      medium_leetcode_questions: 0,
+      hard_leetcode_questions: 0,
    })
 
    const [filterValue, setFilterValue] = React.useState("");
@@ -140,6 +148,22 @@ export default function JobsTable() {
       const cellValue = user[columnKey];
 
       switch (columnKey) {
+         case "cpi":
+            return user.Criteria.cpi;
+         case "english_level":
+            return user.Criteria.english_level;
+         case "logical_reasoning_level":
+            return user.Criteria.logical_reasoning_level;
+         case "experience_gained":
+            return user.Criteria.experience_gained;
+         case "extra_curricular_activities":
+            return user.Criteria.extra_curricular_activities;
+         case "easy_leetcode_questions":
+            return user.Criteria.easy_leetcode_questions;
+         case "medium_leetcode_questions":
+            return user.Criteria.medium_leetcode_questions;
+         case "hard_leetcode_questions":
+            return user.Criteria.hard_leetcode_questions;
          case "createdAt":
             return dayjs(cellValue).format('DD/MM/YYYY');
          case "skills":
@@ -155,7 +179,11 @@ export default function JobsTable() {
                      </DropdownTrigger>
                      <DropdownMenu>
                         <DropdownItem onClick={async (e) => {
-                           setJobEdit({ id: user.id, title: user.title, description: user.description, company: user.company, companyUrl: user.companyUrl, role: user.role, location: user.location, skills: new Set(user.skills), salary: user.salary });
+                           setJobEdit({
+                              id: user.id, title: user.title, description: user.description, company: user.company, companyUrl: user.companyUrl, role: user.role, location: user.location, skills: new Set(user.skills), salary: user.salary,
+                              cpi: user.Criteria.cpi, english_level: user.Criteria.english_level, logical_reasoning_level: user.Criteria.logical_reasoning_level, experience_gained: user.Criteria.experience_gained, extra_curricular_activities: user.Criteria.extra_curricular_activities, easy_leetcode_questions: user.Criteria.easy_leetcode_questions, medium_leetcode_questions: user.Criteria.medium_leetcode_questions, hard_leetcode_questions: user.Criteria.hard_leetcode_questions,
+
+                           });
                            onUserInfoOpen();
                         }}>Edit</DropdownItem>
                         <DropdownItem onClick={async (e) => {
@@ -266,7 +294,9 @@ export default function JobsTable() {
                         ))}
                      </DropdownMenu>
                   </Dropdown> */}
-                  <Dropdown>
+                  <Dropdown
+                     type="listbox"
+                  >
                      <DropdownTrigger className="hidden sm:flex">
                         <Button
                            endContent={<ChevronDownIcon className="text-small" />}
@@ -277,12 +307,15 @@ export default function JobsTable() {
                         </Button>
                      </DropdownTrigger>
                      <DropdownMenu
+
+                        shouldBlockScroll={false}
                         disallowEmptySelection
                         aria-label="Table Columns"
                         closeOnSelect={false}
                         selectedKeys={visibleColumns}
                         selectionMode="multiple"
                         onSelectionChange={setVisibleColumns}
+                        style={{ maxHeight: "300px", overflowY: "auto" }}
                      >
                         {columns.map((column) => (
                            <DropdownItem key={column.uid} className="capitalize">
@@ -617,6 +650,7 @@ export default function JobsTable() {
 
 
                            })
+                           // console.log(jobInfo);
                            onClose();
                         }}>
                            Submit
@@ -639,6 +673,7 @@ export default function JobsTable() {
             isOpen={isUserInfoOpen}
             onOpenChange={onUserInfoOpenChange}
             placement="top-center"
+            scrollBehavior="inside"
          >
             <ModalContent>
                {(onClose) => (
@@ -713,10 +748,117 @@ export default function JobsTable() {
                               </SelectItem>
                            ))}
                         </Select>
+                        <Input
+                           isRequired
+                           name="cpi"
+                           label="CPI"
+                           type="number"
+                           inputMode="decimal"
+                           value={jobEdit.cpi}
+                           onChange={(e) => setJobEdit({ ...jobEdit, cpi: parseFloat(e.target.value) })}
+                           variant="bordered"
+                        />
+
+                        <RadioGroup
+                           label="English Level"
+                           orientation="horizontal"
+                           id='english_level'
+                           name='english_level'
+                           value={jobEdit.english_level}
+
+                           onValueChange={(e) => setJobEdit({ ...jobEdit, english_level: parseInt(e) })}
+                        >
+                           <Radio value={0} >0</Radio>
+                           <Radio value={1}  >1</Radio>
+                           <Radio value={2} >2</Radio>
+                           <Radio value={3} >3</Radio>
+                           <Radio value={4} >4</Radio>
+                           <Radio value={5} >5</Radio>
+                        </RadioGroup><br />
+                        <RadioGroup
+                           label="Logical Reasoning"
+                           orientation="horizontal"
+                           name="logical_reasoning_level"
+                           value={jobEdit.logical_reasoning_level}
+                           onValueChange={(e) => setJobEdit({ ...jobEdit, logical_reasoning_level: parseInt(e) })}
+                        >
+                           <Radio value={0} >0</Radio>
+                           <Radio value={1} >1</Radio>
+                           <Radio value={2} >2</Radio>
+                           <Radio value={3} >3</Radio>
+                           <Radio value={4} >4</Radio>
+                           <Radio value={5} >5</Radio>
+                        </RadioGroup><br />
+                        <RadioGroup
+                           label="Experience Gained 0-Yes | 1-No"
+                           orientation="horizontal"
+                           name='experience_gained'
+                           value={jobEdit.experience_gained}
+                           onValueChange={(e) => setJobEdit({ ...jobEdit, experience_gained: parseInt(e) })}
+                        >
+                           <Radio value={0} >0</Radio>
+                           <Radio value={1}>1</Radio>
+                        </RadioGroup><br />
+                        <RadioGroup
+                           label="Involvement in Extra Curricular Activities"
+                           orientation="horizontal"
+                           name="extra_curricular_activities"
+                           value={jobEdit.extra_curricular_activities}
+                           onValueChange={(e) => setJobEdit({ ...jobEdit, extra_curricular_activities: parseInt(e) })}
+                        >
+                           <Radio value={0} >0</Radio>
+                           <Radio value={1} >1</Radio>
+                           <Radio value={2} >2</Radio>
+                           <Radio value={3} >3</Radio>
+                           <Radio value={4} >4</Radio>
+                           <Radio value={5} >5</Radio>
+                        </RadioGroup><br />
+                        <RadioGroup
+                           label="Leetcode Questions Solved Of Easy Level"
+                           orientation="horizontal"
+                           value={jobEdit.easy_leetcode_questions}
+                           onValueChange={(e) => setJobEdit({ ...jobEdit, easy_leetcode_questions: parseInt(e) })}
+                        >
+                           <Radio value={0} >0</Radio>
+                           <Radio value={1} >1</Radio>
+                           <Radio value={2} >2</Radio>
+                           <Radio value={3} >3</Radio>
+                           <Radio value={4} >4</Radio>
+                           <Radio value={5} >5</Radio>
+                        </RadioGroup><br />
+                        <RadioGroup
+                           label="Leetcode Questions Solved Of Medium Level"
+                           orientation="horizontal"
+                           value={jobEdit.medium_leetcode_questions}
+                           onValueChange={(e) => setJobEdit({ ...jobEdit, medium_leetcode_questions: parseInt(e) })}
+                        >
+                           <Radio value={0}>0</Radio>
+                           <Radio value={1}>1</Radio>
+                           <Radio value={2}>2</Radio>
+                           <Radio value={3}>3</Radio>
+                           <Radio value={4}>4</Radio>
+                           <Radio value={5}>5</Radio>
+                        </RadioGroup><br />
+                        <RadioGroup
+                           label="Leetcode Questions Solved Of Hard Level"
+                           orientation="horizontal"
+                           value={jobEdit.hard_leetcode_questions}
+                           onValueChange={(e) => setJobEdit({ ...jobEdit, hard_leetcode_questions: parseInt(e) })}
+                        >
+                           <Radio value={0}>0</Radio>
+                           <Radio value={1}>1</Radio>
+                           <Radio value={2}>2</Radio>
+                           <Radio value={3}>3</Radio>
+                           <Radio value={4}>4</Radio>
+                           <Radio value={5}>5</Radio>
+                        </RadioGroup><br />
                      </ModalBody>
                      <ModalFooter>
                         <Button color="danger" variant="flat" onClick={(e) => {
-                           setJobEdit({ id: "", title: "", description: "", company: session.data?.username, companyUrl: "", role: "", location: "", skills: new Set([]), salary: "" });
+                           setJobEdit({
+                              id: "", title: "", description: "", company: session.data?.username, companyUrl: "", role: "", location: "", skills: new Set([]), salary: "",
+                              cpi: 0.0, english_level: 0, logical_reasoning_level: 0, experience_gained: 0, extra_curricular_activities: 0, easy_leetcode_questions: 0, medium_leetcode_questions: 0, hard_leetcode_questions: 0,
+                           });
                            onClose();
                         }}>
                            Close

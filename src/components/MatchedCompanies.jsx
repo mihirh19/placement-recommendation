@@ -52,6 +52,7 @@ const columns = [
 const MatchedCompanies = ({ info }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [stateinfo, setStateinfo] = useState({
+    company_name: "",
     company: {
       cpi: 0,
       english_level: 0,
@@ -93,6 +94,7 @@ const MatchedCompanies = ({ info }) => {
               return (
                 <TableRow key={company.id} onClick={() => {
                   setStateinfo({
+                    company_name: company.company,
                     company: {
                       cpi: company.cpi,
                       english_level: company.english_level,
@@ -123,7 +125,7 @@ const MatchedCompanies = ({ info }) => {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Comparison</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">{stateinfo.company_name}</ModalHeader>
               <ModalBody>
                 <Table aria-label="Example table with dynamic content">
                   <TableHeader columns={columns}>

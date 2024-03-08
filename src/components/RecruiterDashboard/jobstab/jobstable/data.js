@@ -10,7 +10,16 @@ const columns = [
    { name: "SALARY", uid: "salary" },
    { name: "SKILLS", uid: "skills" },
    { name: "CREATED", uid: "createdAt" },
+   { name: "CPI", uid: "cpi" },
+   { name: "ENGLISH LEVEL", uid: "english_level" },
+   { name: "LOGICAL REASONING LEVEL", uid: "logical_reasoning_level" },
+   { name: "EXPERIENCE GAINED", uid: "experience_gained" },
+   { name: "EXTRA CURRICULAR ACTIVITIES", uid: "extra_curricular_activities" },
+   { name: "EASY LEETCODE QUESTIONS", uid: "easy_leetcode_questions" },
+   { name: "MEDIUM LEETCODE QUESTIONS", uid: "medium_leetcode_questions" },
+   { name: "HARD LEETCODE QUESTIONS", uid: "hard_leetcode_questions" },
    { name: "ACTIONS", uid: "actions" },
+
 ];
 
 // const statusOptions = [

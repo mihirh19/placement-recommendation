@@ -33,13 +33,26 @@ export async function GET(req, res) {
             location: true,
             salary: true,
             skills: true,
-         }
+            Criteria: {
+               select: {
+                  cpi: true,
+                  english_level: true,
+                  logical_reasoning_level: true,
+                  experience_gained: true,
+                  extra_curricular_activities: true,
+                  easy_leetcode_questions: true,
+                  medium_leetcode_questions: true,
+                  hard_leetcode_questions: true,
+               }
+            }
+         },
       });
 
       return NextResponse.json(jobs, { status: 200 });
 
 
    } catch (err) {
+      console.log(err.message);
       return NextResponse.json({ message: err.message }, { status: 500 });
    }
 
