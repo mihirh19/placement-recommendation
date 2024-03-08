@@ -380,7 +380,7 @@ const EditProf = () => {
                             value={company}
                             className="max-w-full"
                         />
-                        <Button className={styles.btn} variant="ghost">
+                        <Button className={styles.btn} variant="ghost" onClick={handlePredict}>
                             Predict
                         </Button>
                     </CardBody>
