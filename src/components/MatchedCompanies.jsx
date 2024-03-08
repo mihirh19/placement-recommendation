@@ -89,7 +89,6 @@ const MatchedCompanies = ({ info }) => {
               (Math.abs(company.cpi - info.cpi) < 1 || company.cpi < info.cpi) &&
               (Math.abs(company.english_level - info.english_level) <= 2 || company.english_level < info.english_level) &&
               (Math.abs(company.logical_reasoning_level - info.logical_reasoning_level) <= 2 || company.logical_reasoning_level < info.logical_reasoning_level);
-            console.log(isMatched)
             if (isMatched) {
               return (
                 <TableRow key={company.id} onClick={() => {
