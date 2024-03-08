@@ -9,8 +9,11 @@ import {
   TableCell,
 } from "@nextui-org/react";
 
-
+function clacTime(){
+  
+}
 const MatchedCompanies = ({ info }) => {
+  console.log(info)
   return (
     <div>
       <Table
@@ -26,7 +29,7 @@ const MatchedCompanies = ({ info }) => {
       >
         <TableHeader>
           <TableColumn>COMPANY</TableColumn>
-          <TableColumn>UNMATCHED SKILLS</TableColumn>
+          <TableColumn>ROLE</TableColumn>
           <TableColumn>TIME</TableColumn>
         </TableHeader>
         <TableBody emptyContent="No matched companies found" items="10">
@@ -34,14 +37,14 @@ const MatchedCompanies = ({ info }) => {
 
                 const isMatched = 
                 (Math.abs(company.cpi - info.cpi) < 1 || company.cpi < info.cpi) &&
-                (Math.abs(company.english - info.english) <= 2 || company.english < info.english) &&
-                (Math.abs(company.lr - info.logical) <= 2 || company.lr < info.logical);
-
+                (Math.abs(company.english - info.english_level) <= 2 || company.english < info.english_level) && 
+                (Math.abs(company.lr - info.logical_reasoning_level) <= 2 || company.lr < info.logical_reasoning_level); 
+                console.log(isMatched)
                 if (isMatched) {
                 return (
                     <TableRow key={company.id}>
                     <TableCell>{company.company}</TableCell>
-                    <TableCell>{(company.cpi+company.english+company.lr)-(info.cpi+info.english+info.logical)}</TableCell>
+                    <TableCell>{company.role}</TableCell>
                     <TableCell>{2}</TableCell>
                     </TableRow>
                 );

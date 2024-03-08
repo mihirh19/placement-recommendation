@@ -21,3 +21,12 @@
     color: #F55734;
     border-color: #F55734;
 }
+.matchedCard{
+    flex:1;
+    margin: 20px;
+    height: fit-content;
+}
+.rightContainer{
+    display: flex;
+    flex-direction: column;
+}
