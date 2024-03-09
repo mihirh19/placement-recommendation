@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { Role } from "@prisma/client";
 import prisma from "@/lib/prisma";
+import { tech_known } from "@/data/tech";
 
 export async function PUT(req, res) {
    const session = await getServerSession(authOptions);
@@ -22,6 +23,7 @@ export async function PUT(req, res) {
          easy_leetcode_questions, medium_leetcode_questions, hard_leetcode_questions } = await req.json();
 
       const criskills = Object.assign({}, ...skills.map((item) => ({ [item]: 1 })));
+      const emptyskills = Object.assign({}, ...tech_known.map((item) => ({ [item.name]: 0 })));
 
       await prisma.criteria.update({
          where: {
@@ -39,6 +41,7 @@ export async function PUT(req, res) {
             easy_leetcode_questions,
             medium_leetcode_questions,
             hard_leetcode_questions,
+            ...emptyskills,
             ...criskills
          }
       })
