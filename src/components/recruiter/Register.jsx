@@ -74,7 +74,7 @@ const Register = () => {
                   confirmpassword: "",
                   phonenumber: "",
                   name: ""
-                  
+
                });
                toast.success("Registered Successfully", {
                   position: "top-center",
@@ -165,7 +165,7 @@ const Register = () => {
                      className="w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:ring-blue-800 text-white"
                      type="submit"
                   >
-                     {loading ? <Spinner size='sm' color='white' /> : 'Register Student'}
+                     {loading ? <Spinner size='sm' color='white' /> : 'Register Recruiter'}
 
                   </Button>
                </div>
