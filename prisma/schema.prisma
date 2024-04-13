@@ -50,7 +50,7 @@ model Criteria {
   React                       Int    @default(0)
   SpringBoot                  Int    @default(0)
   VueJS                       Int    @default(0)
-  user                        User   @relation(fields: [userId], references: [id])
+  user                        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                      String @unique @db.ObjectId
   Job                         Job?
 }
